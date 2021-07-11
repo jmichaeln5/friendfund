@@ -1,0 +1,22 @@
+#######################################
+### **** Jumpstart Pro Shizzzz **** ###
+### **** Jumpstart Pro Shizzzz **** ###
+### **** Jumpstart Pro Shizzzz **** ###
+#######################################
+
+  First and Last Name (name_of_person)
+    https://www.youtube.com/watch?v=zhIi2D7c_hE
+
+  Masquerade
+    https://gorails.com/episodes/devise-masquerade
+      https://github.com/oivoodoo/devise_masquerade
+
+  ??? mini_magick
+    gem 'jekyll-minimagick', '~> 0.0.4'
+      vs
+    gem 'mini_magick', '~> 4.8'
+
+  Friendly ID
+    https://gorails.com/episodes/pretty-urls-with-friendly-id
+      https://github.com/norman/friendly_id
+      gem 'friendly_id', '~> 5.1'

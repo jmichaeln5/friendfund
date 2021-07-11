@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FriendFund</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="bg-indigo-100">
+
+    <%#= render "shared/navbar"%>
+    <%= render "shared/navbar2"%>
+
+    <!-- <div class="container text-center pt-10 bg-gray-100 h-screen">
+      <div class="msg-container text-center">
+        <% if notice || alert %>
+        <span class="notice text-green-700 text-2xl"><%= notice %></span>
+        <span class="alert text-red-700 text-2xl"><%= alert %></span>
+        <% end %>
+      </div>
+      <div class="pl-20 pr-20">
+        <%= yield %>
+      </div>
+    </div> -->
+
+
+    <div class="font-sans h-screen flex flex-col w-full">
+     <div class="h-screen bg-gradient-to-r from-green-400 to-blue-500">
+      <div class="py-8">
+       <div class="relative w-full text-center">
+
+           <%= render partial: "shared/flash"%>
+           <h1 class="animate-pulse font-bold text-gray-200 text-2xl mb-6">
+            Welcome <%= current_user.name.familiar if current_user%>
+            <br/>
+            Locale To: <%= locale_to %>
+           </h1>
+
+           <%= yield %>
+
+
+       </div>
+      </div>
+     </div>
+    </div>
+
+
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <!-- <script type="text/javascript">
+      setTimeout(function(){
+        $('.msg-container').fadeOut().remove();
+      }, 3000);
+      // $(".msg-container").delay(4000).fadeOut().remove();
+    </script> -->
+
+  </body>
+</html>
