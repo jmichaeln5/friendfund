@@ -21,21 +21,7 @@
 
   <body class="bg-indigo-100">
 
-    <%#= render "shared/navbar"%>
-    <%= render "shared/navbar2"%>
-
-    <!-- <div class="container text-center pt-10 bg-gray-100 h-screen">
-      <div class="msg-container text-center">
-        <% if notice || alert %>
-        <span class="notice text-green-700 text-2xl"><%= notice %></span>
-        <span class="alert text-red-700 text-2xl"><%= alert %></span>
-        <% end %>
-      </div>
-      <div class="pl-20 pr-20">
-        <%= yield %>
-      </div>
-    </div> -->
-
+    <%= render "shared/navbar"%>
 
     <div class="font-sans h-screen flex flex-col w-full">
      <div class="h-screen bg-gradient-to-r from-green-400 to-blue-500">
@@ -49,8 +35,11 @@
             Locale To: <%= locale_to %>
            </h1>
 
-           <%= yield %>
-
+          <div class="container">
+            <div class=" bg-gradient-to-r from-green-200 to-blue-300 py-10">
+              <%= yield %>
+            </div>
+          </div>
 
        </div>
       </div>
@@ -58,17 +47,15 @@
     </div>
 
 
-
-
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
       setTimeout(function(){
         $('.msg-container').fadeOut().remove();
-      }, 3000);
+      }, 2500);
       // $(".msg-container").delay(4000).fadeOut().remove();
-    </script> -->
+    </script>
 
   </body>
 </html>

@@ -55,6 +55,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'humanize', '~> 1.1', '>= 1.1.2'
 gem 'devise', '~> 4.2'
 # gem 'devise_masquerade', '~> 0.1.8'
 gem 'name_of_person'
+gem 'faker', '~> 1.6', '>= 1.6.3'

@@ -5,3 +5,33 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+if User.all.count < 1
+  user = User.create!(
+      id: 1,
+      first_name: 'Admin',
+      last_name: "User",
+      phone_number: "954"+[*0..3, *0..4].sample(7).join,
+      email: "admin@gmail.com",
+      username: "adminuser",
+      password: '123456',
+      password_confirmation: "123456"
+  )
+  puts "*"*50
+  puts "Creating Users..."
+  puts "*"*50
+  (2..20).each do |id|
+      user = User.create!(
+          id: id,
+          first_name: 'User',
+          last_name: "#{id.humanize.capitalize}",
+          phone_number: "954"+[*0..3, *0..4].sample(7).join,
+          email: "user#{id}@gmail.com",
+          username: "user#{id.humanize}",
+          password: '123456',
+          password_confirmation: "123456"
+      )
+      puts "#{user.username} created."
+      puts "*"*20
+  end
+end
