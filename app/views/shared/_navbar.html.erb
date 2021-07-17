@@ -42,9 +42,21 @@
         </li>
       <% end %>
 
-      <%= link_to 'log in', new_user_session_path, class:'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if !current_user %>
-      <%= link_to 'sign up', new_user_registration_path, class:'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if !current_user %>
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, class:"text-gray-300 hover:bg-gray-700 hover:text-white px-4 py-2 rounded-md text-sm font-medium" if user_signed_in? %>
+      <!-- Before moving Devise Folder to Users -->
+      <%#= link_to 'log in', new_user_session_path, class:'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if !current_user %>
+
+      <%#= link_to 'sign up', new_user_registration_path, class:'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if !current_user %>
+
+      <%#= link_to "Logout", destroy_user_session_path, method: :delete, class:"text-gray-300 hover:bg-gray-700 hover:text-white px-4 py-2 rounded-md text-sm font-medium" if user_signed_in? %>
+
+
+      <!-- After moving Devise Folder to Users -->
+      <%= link_to 'log in', sign_in_path, class:'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if !current_user %>
+
+      <%= link_to 'sign up', sign_up_path, class:'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if !current_user %>
+
+      <%= link_to "Logout", signout_path, method: :delete, class:"text-gray-300 hover:bg-gray-700 hover:text-white px-4 py-2 rounded-md text-sm font-medium" if user_signed_in? %>
+
     </li>
 
   </div>
