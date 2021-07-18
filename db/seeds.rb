@@ -16,34 +16,58 @@ if User.all.count < 1
       username: "adminuser",
       password: '123456',
       password_confirmation: "123456"
-  )
-  admin_user.skip_confirmation!
+  ).skip_confirmation!
   admin_user.save
+
+  # puts "*"*50
+  # puts "Creating Users..."
+  # puts "*"*50
+  # puts "adminuser created."
+  # puts "*"*20
+  #
+  # (2..5).each do |id|
+  #     user = User.create!(
+  #         id: id,
+  #         first_name: 'User',
+  #         last_name: "#{id.humanize.capitalize}",
+  #         phone_number: "954"+[*0..3, *0..4].sample(7).join,
+  #         email: "user#{id}@gmail.com",
+  #         username: "user#{id.humanize}",
+  #         password: '123456',
+  #         password_confirmation: "123456"
+  #     )
+  #     user.skip_confirmation!
+  #     user.save
+  #     puts "#{user.username} created."
+  #     puts "*"*20
+  # end
 end
 
-if ( User.all.count > 1 ) && ( User.all.count > 5 )
-  puts "*"*50
-  puts "Creating Users..."
-  puts "*"*50
-  puts "adminuser created."
-  puts "*"*20
+# if User.all.count < 5
+  # puts "*"*50
+  # puts "Creating Users..."
+  # puts "*"*50
+  # puts "adminuser created."
+  # puts "*"*20
+  #
+  # (2..5).each do |id|
+  #     user = User.create!(
+  #         id: id,
+  #         first_name: 'User',
+  #         last_name: "#{id.humanize.capitalize}",
+  #         phone_number: "954"+[*0..3, *0..4].sample(7).join,
+  #         email: "user#{id}@gmail.com",
+  #         username: "user#{id.humanize}",
+  #         password: '123456',
+  #         password_confirmation: "123456"
+  #     )
+  #     user.skip_confirmation!
+  #     user.save
+  #     puts "#{user.username} created."
+  #     puts "*"*20
+  # end
+# end
 
-  (2..5).each do |id|
-      user = User.create!(
-          id: id,
-          first_name: 'User',
-          last_name: "#{id.humanize.capitalize}",
-          phone_number: "954"+[*0..3, *0..4].sample(7).join,
-          email: "user#{id}@gmail.com",
-          username: "user#{id.humanize}",
-          password: '123456',
-          password_confirmation: "123456"
-      )
-      user.skip_confirmation!
-      user.save
-      puts "#{user.username} created."
-      puts "*"*20
-  end
-end
+
 
 ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
