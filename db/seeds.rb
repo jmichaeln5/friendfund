@@ -19,8 +19,9 @@ if User.all.count < 1
   )
   admin_user.skip_confirmation!
   admin_user.save
+end
 
-
+if ( User.all.count > 1 ) && ( User.all.count > 5 )
   puts "*"*50
   puts "Creating Users..."
   puts "*"*50
