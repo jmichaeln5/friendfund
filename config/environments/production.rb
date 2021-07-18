@@ -45,8 +45,26 @@ Rails.application.configure do
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
+    # Devise ***
+   config.action_mailer.default_url_options = { :host => "friendfund.herokuapp.com" }
+   #Mailers
+   config.action_mailer.delivery_method = :sendmail
+   config.action_mailer.perform_deliveries = true
+   config.action_mailer.raise_delivery_errors = false
+   config.action_mailer.default_options = {from: 'friendfundapp@gmail.com'}
+
+   config.action_mailer.delivery_method = :smtp
+   config.action_mailer.smtp_settings = {
+     address:              'smtp.gmail.com',
+     port:                 587,
+     domain:               'friendfund.herokuapp.com',
+     user_name:            "friendfundapp@gmail.com",
+     password:             "newpass42069",
+     authentication:       'plain',
+     enable_starttls_auto: true
+ }
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
