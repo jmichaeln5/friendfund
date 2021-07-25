@@ -19,7 +19,11 @@
           <div>
             phone_number: <%= user.phone_number %>
           </div>
-
+          <div>
+            <br>
+            <%= link_to 'Add Friend', root_path, class:"btn btn-outline-primary" %>
+            <%#= link_to 'Add Friend', friendships_path(user), method: :post, class:"btn btn-outline-primary" %>
+          </div>
           <br>
           <div class=" p-4 border border-white">
            <%= user.inspect %>
