@@ -3,14 +3,7 @@ Rails.application.routes.draw do
   get 'pages/about'
 
   # devise_for :users
-
-#   ### After running ### #rails generate devise:controllers users
-  #   devise_for :users, controllers: {
-  #     sessions: 'users/sessions'
-  #   }
-
   devise_for :users, :controllers => {
-
     :registrations => 'users/registrations',
     :sessions => 'users/sessions',
     :passwords => 'users/passwords',
@@ -25,8 +18,7 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
 
-  resources :users, only: [:index, :show] 
-
+  resources :users, only: [:index, :show]
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
