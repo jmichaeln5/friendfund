@@ -6,6 +6,9 @@ class DashboardController < ApplicationController
 
   def show
     @user = current_user
-    @dashboard = Dashboard.new
+    # @dashboard = Dashboard.new
+    @friend_requests_as_requestor = @user.friend_requests_as_requestor
+    @friend_requests_as_receiver = @user.friend_requests_as_receiver
   end
+
 end

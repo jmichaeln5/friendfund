@@ -1,0 +1,44 @@
+<%= form_with(model: friend_request) do |form| %>
+  <% if friend_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(friend_request.errors.count, "error") %> prohibited this friend_request from being saved:</h2>
+
+      <ul>
+        <% friend_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label "Requestor" %>
+    <%= form.text_field :requestor_id, value: current_user.username, readonly: true %>
+    <%= form.hidden_field :requestor_id, value: current_user.id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receiver_id %>
+    <%#= form.text_field :receiver_id %>
+    <%#= form.collection_select :receiver_id, User.order(:username),:id,:username %>
+    <%= form.select :receiver_id, User.all.collect { |user| [ user.username, user.id ] if user != current_user } %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Status" %>
+    <%#= form.text_field :status, value: "Pending", readonly: true %>
+    <%#= form.hidden_field :status, value: "pending" %>
+
+    <%#= select_tag :status, options_for_select(FriendRequest.statuses.map {|k, v| [k.humanize, v]}) %>
+
+    <%= form.select(:status, options_for_select([['Pending',
+   'pending'],['Accepted','accepted'],['Rejected','rejected']]), {
+   include_blank: true }) %>
+
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

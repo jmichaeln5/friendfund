@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
 
   resources :users, only: [:index, :show]
+  resources :friend_requests
+  resources :friendships
+
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

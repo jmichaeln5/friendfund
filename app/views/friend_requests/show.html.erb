@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>requestor_id:</strong>
+  <%= @friend_request.requestor_id %>
+</p>
+
+<p>
+  <strong>receiver_id:</strong>
+  <%= @friend_request.receiver_id %>
+</p>
+
+<p>
+  <strong>status:</strong>
+  <%= @friend_request.status %>
+</p>
+
+<%= link_to 'Edit', edit_friend_request_path(@friend_request) %> |
+<%= link_to 'Back', :back %>
