@@ -11,34 +11,52 @@
     </div>
   <% end %>
 
+<br>
+<div class="card px-4">
+  <h3>Verify Friend Request</h3>
+  <% if FriendRequest.where(requestor_id:current_user.id, receiver_id: user.id).present? %>
+
+    <%=  User.joins(:friend_requests).where({ requestor_id: current_user.id, receiver_id: user.id }) %>
+  <% end %>
+</div>
+<br>
+
+
   <div class="field">
     <%= form.label "Requestor" %>
     <%= form.text_field :requestor_id, value: current_user.username, readonly: true %>
     <%= form.hidden_field :requestor_id, value: current_user.id %>
-  </div>
-
-  <div class="field">
+    <br>
     <%= form.label :receiver_id %>
-    <%#= form.text_field :receiver_id %>
-    <%#= form.collection_select :receiver_id, User.order(:username),:id,:username %>
-    <%= form.select :receiver_id, User.all.collect { |user| [ user.username, user.id ] if user != current_user } %>
-  </div>
-
-  <div class="field">
+    <%= form.text_field :receiver_id, value: user.username, readonly: true %>
+    <%= form.hidden_field :receiver_id, value: user.id %>
+    <br>
     <%= form.label "Status" %>
-    <%#= form.text_field :status, value: "Pending", readonly: true %>
-    <%#= form.hidden_field :status, value: "pending" %>
-
-    <%#= select_tag :status, options_for_select(FriendRequest.statuses.map {|k, v| [k.humanize, v]}) %>
-
-    <%= form.select(:status, options_for_select([['Pending',
-   'pending'],['Accepted','accepted'],['Rejected','rejected']]), {
-   include_blank: true }) %>
-
+    <br>
+    <% if friend_request.present? %>
+      <%#= form.text_field :status, value: "#{friend_request.status}", readonly: true %>
+      <%= friend_request.status %>
+    <% else %>
+      Accept
+      <%= form.radio_button :status, 'accepted' %>
+      Reject
+      <%= form.radio_button :status, 'rejected' %>
+      Cancel
+      <%= form.radio_button :status, 'canceled' %>
+    <% end %>
   </div>
 
 
-  <div class="actions">
-    <%= form.submit %>
+
+  <!-- <div class="actions">
+    <%#= form.submit %>
+  </div> -->
+  <div class="py-2">
+    <div class="actions btn btn-outline-primary">
+      <%= button_tag(type: 'submit') do %>
+        Add Friend
+      <% end %>
+    </div>
   </div>
+
 <% end %>

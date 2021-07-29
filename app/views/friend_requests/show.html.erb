@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<h1>Friend Requests Show</h1>
 
 <p>
   <strong>requestor_id:</strong>
@@ -15,5 +15,11 @@
   <%= @friend_request.status %>
 </p>
 
-<%= link_to 'Edit', edit_friend_request_path(@friend_request) %> |
-<%= link_to 'Back', :back %>
+<%# @requested_by_current_user = user.friend_requests_as_receiver.where(requestor_id: current_user.id).first if user.friend_requests_as_receiver.where(requestor_id: current_user.id).present? %>
+
+
+
+
+<%= render "friend_requests/request_buttons/display_buttons" %>
+
+<%#= render "friend_requests/request_buttons/admin_display_buttons" %>

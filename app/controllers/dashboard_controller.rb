@@ -5,10 +5,13 @@ class DashboardController < ApplicationController
   # Keep Controller Skinny!! By creating a new class for Dashboard in Models
 
   def show
-    @user = current_user
+    # @user = current_user
+
     # @dashboard = Dashboard.new
-    @friend_requests_as_requestor = @user.friend_requests_as_requestor
-    @friend_requests_as_receiver = @user.friend_requests_as_receiver
+
+    @friend_requests_as_requestor = current_user.friend_requests_as_requestor
+    @friend_requests_as_receiver = current_user.friend_requests_as_receiver
+    @users = User.all
   end
 
 end

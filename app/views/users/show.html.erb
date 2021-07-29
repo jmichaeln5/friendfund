@@ -1,33 +1,4 @@
 <h1>Users#show</h1>
 <p>Find me in app/views/users/show.html.erb</p>
 
-  <div class="container p-4">
-        <div class="p-4 border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
-          <br>
-          <div class="text-2xl">
-            Name: <%= @user.name %>
-          </div>
-          <div>
-            email: <%= @user.email %>
-          </div>
-          <div>
-            username: <%= @user.username %>
-          </div>
-          <div>
-            phone_number: <%= @user.phone_number %>
-          </div>
-          <div>
-            <br>
-            <%= link_to 'Add Friend', root_path, class:"btn btn-outline-primary" %>
-          </div>
-          <br>
-          <div class=" p-4 border border-white">
-           <%= @user.inspect %>
-          </div>
-
-          <div>
-            <br>
-            <%= link_to 'View', user_path(@user), class:"btn btn-outline-success" %>
-          </div>
-        </div>
-    </div>
+<%= render partial: "user", locals: { user: @user } %>

@@ -1,75 +1,34 @@
-  Name: <%= @user.name %>
-  <br/>
-  Email: <%= @user.email %>
-  <br/>
-  Username: <%= @user.username %>
-  <br/>
-  Phone Number: <%= @user.phone_number %>
-  <br/>
+<h1>Dashboard#show</h1>
+<p> Find me in app/views/dashboard/show.html.erb</p>
 
-  <%#= @friend_requests_as_requestor %>
-  <!-- <br/> -->
-  <%#= @friend_requests_as_receiver %>
+<%= link_to 'friend requests', user_friend_requests_path(current_user), class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+<br>
+<%= link_to 'users', users_path, class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+
 
   <div class="p-4">
     <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
-      <p class="text-2xl">Friend Requests</p>
-      <!-- Requested Button trigger modal -->
-      <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal1">
-        Requested
-      </button>
-      <!-- Received Button trigger modal -->
-      <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal2">
-        Received
-      </button>
+      <p class="text-3xl"> (Rendering Partial) User</p>
+      <p class="text-3xl">Rendered User from
+        <p class="text-2xl">app/views/users/_user.html.erb </p>
+      </p>
+
+      <hr>
+
+      Name: <%= current_user.name %>
+      <br/>
+      Email: <%= current_user.email %>
+      <br/>
+      Username: <%= current_user.username %>
+      <br/>
+      Phone Number: <%= current_user.phone_number %>
+      <br/>
+
+      <%#= render partial: "user", collection: @users %>
+
+      <%#= render partial: "users/user", collection: @users, locals: {user: @user} %>
+
+
+
     </div>
   </div>
-
-
-  <!-- Requested Modal -->
-  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModal1Label">Requested</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <%= render "friend_requests/as_requestor" %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <!-- Received Modal -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModal2Label">Received</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <%= render "friend_requests/as_receiver" %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="p-4">
-      <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
-        <p class="text-2xl">Friends</p>
-
-      </div>
-    </div>

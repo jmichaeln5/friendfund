@@ -1,0 +1,53 @@
+  <div class="container p-4">
+        <div class="p-4 border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+
+          <br>
+
+          <div class="text-2xl">
+          <% if locale_to != "Users#show" %>
+            <%= link_to "#{user.name}", user_path(user) %>
+          <% else %>
+            <%= user.name%>
+          <% end %>
+
+          <%#= render :partial => "friend_requests/request_buttons/add_friend_button", :locals => {:friend_request => @friend_request, :requestor_id => current_user.id, :receiver_id => user.receiver_id }  %>
+
+          <!-- Nest controller w module or just call form from outside??? -->
+          <!-- Nest controller w module or just call form from outside??? -->
+          <!-- Nest controller w module or just call form from outside??? -->
+          <!-- Nest controller w module or just call form from outside??? -->
+
+        <!-- Same as above -->
+
+          <!-- <%#= form_with(model: FriendRequest.new) do |form| %>
+              <%#= form.hidden_field :requestor_id, value: current_user.id %>
+              <%#= form.hidden_field :receiver_id, value: user.id %>
+              <%#= form.hidden_field :status, value: "pending" %>
+
+              <div class="actions btn btn-outline-primary">
+                <%#= button_tag(type: 'submit') do %>
+                  add friend button
+                <%# end %>
+              </div>
+
+          <%# end %> -->
+
+          </div>
+
+          <div>
+            email: <%= user.email %>
+          </div>
+          <div>
+            username: <%= user.username %>
+          </div>
+          <div>
+            phone_number: <%= user.phone_number %>
+          </div>
+
+          <br>
+          <div class=" p-4 border border-white">
+           <%= user.inspect %>
+          </div>
+
+        </div>
+    </div>

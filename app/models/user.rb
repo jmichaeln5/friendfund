@@ -9,33 +9,18 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { minimum: 2, maximum: 30 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 30 }
 
-  # has_many :friendships, dependent: :destroy
-  # has_many :friends, through: :friendships
-  #
-  # has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-  # has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-  #
-  # def active_friends
-  #   friends.select{ |friend| friend.friends.include?(self) }
-  # end
-  #
-  # def pending_friends
-  #   friends.select{ |friend| !friend.friends.include?(self) }
-  # end
-
-
-
   ## # https://medium.com/@elizabethprendergast/using-custom-relation-queries-to-establish-friends-and-friendships-in-rails-and-activerecord-6c6e5825433a
-  ## #
+
   has_many :friend_requests_as_requestor, foreign_key: :requestor_id, class_name: :FriendRequest
   has_many :friend_requests_as_receiver, foreign_key: :receiver_id, class_name: :FriendRequest
 
-  # has_many :friendships_as_friend_a, foreign_key: :friend_a_id, class_name: :Friendship
-  # has_many :friendships_as_friend_b, foreign_key: :friend_b_id, class_name: :Friendship
-  # has_many :friend_as, through: :friendships_as_friend_b
-  # has_many :friend_bs, through: :friendships_as_friend_a
+  has_many :friendships_as_friend_a, foreign_key: :friend_a_id, class_name: :Friendship
+  has_many :friendships_as_friend_b, foreign_key: :friend_b_id, class_name: :Friendship
+  has_many :friend_as, through: :friendships_as_friend_b
+  has_many :friend_bs, through: :friendships_as_friend_a
 
-  has_many :friendships, ->(user) { where("friend_a_id = ? OR friend_b_id = ?", user.id, user.id) }
+
+  # has_many :friendships, ->(user) { where("friend_a_id = ? OR friend_b_id = ?", user.id, user.id) }
   has_many :friends, through: :friendships
 
 

@@ -1,0 +1,13 @@
+<%= form_with(model: friend_request) do |form| %>
+
+    <%= form.hidden_field :requestor_id, value: current_user.id %>
+    <%= form.hidden_field :receiver_id, value: receiver_id %>
+    <%= form.hidden_field :status, value: "rejected" %>
+
+    <div class="actions btn btn-outline-secondary">
+      <%= button_tag(type: 'submit') do %>
+        reject
+      <% end %>
+    </div>
+
+<% end %>

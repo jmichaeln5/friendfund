@@ -1,0 +1,16 @@
+<h1>Users#index</h1>
+<p>Find me in app/views/users/index.html.erb</p>
+
+<div class="p-4">
+  <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
+    <p class="text-3xl"> (Rendering Partial) User</p>
+    <p class="text-3xl">Rendered User from
+      <p class="text-2xl">app/views/users/_user.html.erb </p>
+    </p>
+
+    <hr>
+
+    <%= render partial: "users/user", collection: @users %>
+
+  </div>
+</div>
