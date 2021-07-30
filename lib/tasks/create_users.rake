@@ -14,7 +14,7 @@ task :create_users => :environment do
   puts "*"*50
   puts " "
 
-  starting_id_to_create = User.last.id + 1
+  starting_id_to_create = User.last ? ( User.last.id + 1) : 0
   users_to_create = 10
   ending_id_to_create = starting_id_to_create + users_to_create
 

@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 2021_07_26_225715) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", default: " ", null: false
+    t.string "last_name", default: " ", null: false
     t.string "phone_number", default: "", null: false
     t.string "email", default: "", null: false
     t.string "username", default: "", null: false
