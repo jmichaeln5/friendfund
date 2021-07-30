@@ -3,14 +3,7 @@ Rails.application.routes.draw do
   get 'pages/about'
 
   # devise_for :users
-
-#   ### After running ### #rails generate devise:controllers users
-  #   devise_for :users, controllers: {
-  #     sessions: 'users/sessions'
-  #   }
-
   devise_for :users, :controllers => {
-
     :registrations => 'users/registrations',
     :sessions => 'users/sessions',
     :passwords => 'users/passwords',
@@ -25,7 +18,23 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
 
-  resources :users, only: [:index, :show] 
+  resources :users do
+    resources :friend_requests, only: [:index, :new, :create]
+  end
+  resources :friend_requests, only: [:show, :update, :destroy]
+
+  # resources :users do
+  #   resources :friend_requests, shallow: true
+  # end
+
+  resources :friendships
+
+### Only for Admin Create
+  resources :friend_requests, only: :create # Only used form admin_friend_request
+  get '/admin_friend_request', to: 'friend_requests#admin_friend_request', as: 'admin_friend_request'
+### Only for Admin Create
+
+
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

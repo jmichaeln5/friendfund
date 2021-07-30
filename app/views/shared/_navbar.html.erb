@@ -1,12 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-gray-800">
   <div class="flex-shrink-0 flex items-center">
     <% if current_user %>
-    <a href="/dashboard" class="text-white px-3 py-2 rounded-md text-2xl font-medium">FriendFund</a>
+      <a href="/dashboard" class="text-white px-3 py-2 rounded-md text-2xl font-medium">FriendFund</a>
     <% else %>
-    <a href="/" class="text-white px-3 py-2 rounded-md text-2xl font-medium">FriendFund</a>
+      <a href="/" class="text-white px-3 py-2 rounded-md text-2xl font-medium">FriendFund</a>
     <% end %>
 
   </div>
+
+  <%= link_to 'admin friend request', admin_friend_request_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'  %>
+
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -23,6 +26,15 @@
       <li class="nav-item">
         <%= link_to 'dashboard', dashboard_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if user_signed_in? %>
       </li>
+      <li class="nav-item">
+        <%= link_to 'Users#index', users_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if user_signed_in? %>
+      </li>
+
+      <li class="nav-item">
+        <%= link_to 'friend requests', user_friend_requests_path(current_user), class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' if user_signed_in? %>
+      </li>
+
+
     </ul>
 
     <li class="nav-item">

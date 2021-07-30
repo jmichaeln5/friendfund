@@ -1,0 +1,15 @@
+<h1>Admin display buttons </h1>
+
+<!-- Cancel Request Button -->
+<% if @friend_request.present? %>
+  <%= render :partial => "friend_requests/request_buttons/cancel_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user }  %>
+
+  <!-- Accept Request Button -->
+  <%= render :partial => "friend_requests/request_buttons/accept_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user }  %>
+
+  <!-- Reject Request Button -->
+  <%= render :partial => "friend_requests/request_buttons/reject_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user }  %>
+
+  <%= link_to 'Destroy', @friend_request, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
+
+<% end %>

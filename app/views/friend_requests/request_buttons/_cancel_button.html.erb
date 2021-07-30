@@ -1,0 +1,10 @@
+<%= form_with(model: friend_request) do |form| %>
+    <%= form.hidden_field :status, value: "canceled" %>
+
+    <div class="actions btn btn-outline-secondary">
+      <%= button_tag(type: 'submit') do %>
+        cancel request
+      <% end %>
+    </div>
+
+<% end %>
