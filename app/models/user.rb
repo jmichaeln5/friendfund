@@ -9,8 +9,6 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { minimum: 2, maximum: 30 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 30 }
 
-  ## # https://medium.com/@elizabethprendergast/using-custom-relation-queries-to-establish-friends-and-friendships-in-rails-and-activerecord-6c6e5825433a
-
   has_many :friend_requests_as_requestor, foreign_key: :requestor_id, class_name: :FriendRequest
   has_many :friend_requests_as_receiver, foreign_key: :receiver_id, class_name: :FriendRequest
 
@@ -23,9 +21,12 @@ class User < ApplicationRecord
   # has_many :friendships, ->(user) { where("friend_a_id = ? OR friend_b_id = ?", user.id, user.id) }
   has_many :friends, through: :friendships
 
-
   # def friendships
   #    self.friendships_as_friend_a + self.friendships_as_friend_b
   # end
+
+  def friend_requests
+     self.friend_requests_as_requestor + self.friend_requests_as_receiver
+  end
 
 end

@@ -1,7 +1,4 @@
 <%= form_with(model: friend_request) do |form| %>
-
-    <%= form.hidden_field :requestor_id, value: current_user.id %>
-    <%= form.hidden_field :receiver_id, value: receiver_id %>
     <%= form.hidden_field :status, value: "canceled" %>
 
     <div class="actions btn btn-outline-secondary">

@@ -20,46 +20,20 @@ class FriendRequestsController < ApplicationController
   def edit
   end
 
-    # POST /friend_requests or /friend_requests.json
-    def create
-      @friend_request = FriendRequest.new(friend_request_params)
-      # params[:status].to_i
-
-      respond_to do |format|
-        if @friend_request.save
-          format.html { redirect_to @friend_request, notice: "FriendRequest was successfully created." }
-          format.json { render :show, status: :created, location: @friend_request }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @friend_request.errors, status: :unprocessable_entity }
-        end
-      end
+  def create
+    @friend_request = FriendRequest.new(friend_request_params)
+    if @friend_request.save
+      redirect_to @friend_request, notice: "FriendRequest was successfully created."
+    else
+      redirect_to request.referrer
+      @friend_request.errors.full_messages.each.map {|message| flash[:alert] = message }
     end
+  end
 
-
-# ####### Admin Create (TEST PURPOSES ONLY!!!!)
-    def admin_friend_request
-      @friend_request = FriendRequest.new
-    end
-
-    def admin_create_friend_request
-      @friend_request = FriendRequest.new(friend_request_params)
-      respond_to do |format|
-        if @friend_request.save
-          format.html { redirect_to @friend_request, notice: "FriendRequest was successfully created." }
-          format.json { render :show, status: :created, location: @friend_request }
-        else
-
-          # format.html { render :admin_friend_request, status: :unprocessable_entity }
-
-          redirect_to admin_friend_request_path, flash: {error: "Now please fill in the questionnaire."}
-
-          format.json { render json: @friend_request.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-# ####### Admin Create (TEST PURPOSES ONLY!!!!)
-
+  # ####### Admin Create (TEST PURPOSES ONLY!!!!)
+  def admin_friend_request
+    @friend_request = FriendRequest.new
+  end
 
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json
   def update
@@ -80,7 +54,7 @@ class FriendRequestsController < ApplicationController
   def destroy
     @friend_request.destroy
     respond_to do |format|
-      format.html { redirect_to friend_requests_url, notice: "FriendRequest was successfully destroyed." }
+      format.html { redirect_to user_friend_requests_path(current_user), notice: "FriendRequest was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -16,7 +16,7 @@
       </div>
         <div class="modal-body">
 
-          <% current_user.friend_requests_as_requestor.each do |friend_request| %>
+          <% current_user.friend_requests_as_requestor.reverse.each do |friend_request| %>
 
           <div class="pb-4">
             <div class="card p-4">

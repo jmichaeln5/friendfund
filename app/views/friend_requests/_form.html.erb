@@ -12,14 +12,7 @@
   <% end %>
 
 <br>
-<div class="card px-4">
-  <h3>Verify Friend Request</h3>
-  <% if FriendRequest.where(requestor_id:current_user.id, receiver_id: user.id).present? %>
 
-    <%=  User.joins(:friend_requests).where({ requestor_id: current_user.id, receiver_id: user.id }) %>
-  <% end %>
-</div>
-<br>
 
 
   <div class="field">

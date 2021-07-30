@@ -1,14 +1,12 @@
-<!-- Add Friend  Button -->
-<%= render :partial => "friend_requests/request_buttons/add_friend_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user } if @friend_request == false %>
-
+<!-- Requestor Option-->
 <!-- Cancel Request Button -->
-<%= render :partial => "friend_requests/request_buttons/cancel_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user }  %>
+<%= render :partial => "friend_requests/request_buttons/cancel_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user } if @friend_request.requestor_id == current_user.id  %>
 
-
-<% if (current_user == @friend_request.receiver) %>
+<!-- Receiver Options-->
+<% if (current_user == @friend_request.receiver) && (@friend_request.accepted? == false) %>
   <!-- Accept Request Button -->
-  <%= render :partial => "friend_requests/request_buttons/accept_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user }  %>
+  <%= render :partial => "friend_requests/request_buttons/accept_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user } %>
 
   <!-- Reject Request Button -->
-  <%= render :partial => "friend_requests/request_buttons/reject_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user }  %>
+  <%= render :partial => "friend_requests/request_buttons/reject_button", :locals => {:friend_request => @friend_request, :requestor_id => @friend_request.requestor_id, :receiver_id => @friend_request.receiver_id,  :user => @user } %>
 <% end %>
