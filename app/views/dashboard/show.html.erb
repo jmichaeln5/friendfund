@@ -1,34 +1,25 @@
 <h1>Dashboard#show</h1>
 <p> Find me in app/views/dashboard/show.html.erb</p>
 
+<%= link_to 'admin friend requests', admin_friend_request_path, class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+<br>
 <%= link_to 'friend requests', user_friend_requests_path(current_user), class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
 <br>
 <%= link_to 'users', users_path, class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
 
+<hr>
 
-  <div class="p-4">
-    <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
-      <p class="text-3xl"> (Rendering Partial) User</p>
-      <p class="text-3xl">Rendered User from
-        <p class="text-2xl">app/views/users/_user.html.erb </p>
-      </p>
+<div class="p-2">
+    Name: <%= current_user.name %>
+    <br/>
+    Email: <%= current_user.email %>
+    <br/>
+    Username: <%= current_user.username %>
+    <br/>
+    Phone Number: <%= current_user.phone_number %>
+    <br/>
+</div>
 
-      <hr>
+<br>
 
-      Name: <%= current_user.name %>
-      <br/>
-      Email: <%= current_user.email %>
-      <br/>
-      Username: <%= current_user.username %>
-      <br/>
-      Phone Number: <%= current_user.phone_number %>
-      <br/>
-
-      <%#= render partial: "user", collection: @users %>
-
-      <%#= render partial: "users/user", collection: @users, locals: {user: @user} %>
-
-
-
-    </div>
-  </div>
+  <%= render partial: "users/user", collection: @users, locals: {user: @user} %>
