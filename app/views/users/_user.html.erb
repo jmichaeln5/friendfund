@@ -50,25 +50,20 @@
     </div>
 
     <div class="p-4 border-2 border-gray-200">
-      <div>
-        email: <%= user.email %>
-      </div>
-      <div>
-        username: <%= user.username %>
-      </div>
-      <div>
-        phone_number: <%= user.phone_number %>
-      </div>
+      <div>  <span class="font-bold "> <%= user.name %> Info: </span> </div>
+      <div> email: <%= user.email %> </div>
+      <div> username: <%= user.username %> </div>
+      <div> phone_number: <%= user.phone_number %> </div>
     </div>
 
     <% if received_request_from_user %>
       <% received_request_id = current_user.friend_requests_as_receiver.all.where(requestor_id: user.id).all.where(receiver_id: current_user.id).first.id  %>
-      <div class="row p-4 ">
-        <div class="row p-4 border-2 border-gray-200">
-          Friend Req Info: <br>
-          Friend Request ID: <%= received_request_id %>
-          (Partial) User ID: <%= user.id %>
-          current_user ID: <%= current_user.id %>
+      <div class=" p-4 ">
+        <div class="row p-4 border-2 border-gray-200 text-center">
+          <div class="font-bold pr-2 ">Friend Request Info: </div>
+          <div> Friend Request ID: <%= received_request_id %> </div>
+          <div> (Partial) User ID: <%= user.id %> </div>
+          <div> current_user ID: <%= current_user.id %> </div>
         </div>
       </div>
       <br>
@@ -76,12 +71,12 @@
 
     <% if sent_request_to_user %>
       <% sent_request_id = current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id).all.where(receiver_id: user.id).first.id %>
-      <div class="row p-4 ">
-        <div class="row p-4 border-2 border-gray-200">
-          Friend Req Info: <br>
-          Friend Request ID: <%= sent_request_id %>
-          (Partial) User ID: <%= user.id %>
-          current_user ID: <%= current_user.id %>
+      <div class=" p-4 ">
+        <div class="row p-4 border-2 border-gray-200 text-center">
+          <div class="font-bold pr-2">Friend Request Info:</div>
+          <div> Friend Request ID: <%= sent_request_id %> </div>
+          <div> (Partial) User ID: <%= user.id %> </div>
+          <div> current_user ID: <%= current_user.id %> </div>
         </div>
       </div>
       <br>
