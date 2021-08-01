@@ -1,4 +1,6 @@
-<% requested_by_current_user = current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id, receiver_id: user.id ).exists? || current_user.friend_requests_as_requestor.all.where(receiver_id: current_user.id, requestor_id: user.id ).exists? %>
+<% requested_by_current_user = current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id, receiver_id: user.id ).exists?  %>
+
+<% received_request_by_current_user = current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id, receiver_id: user.id ).exists?  %>
 
 <div class="p-4 border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
 
@@ -12,7 +14,7 @@
             <%= user.name%>
           <% end %>
 
-          <% if (requested_by_current_user == false) && ( user != current_user) %>
+          <% if (requested_by_current_user == false) && (received_request_by_current_user == false) && ( user != current_user) %>
             <%= render :partial => "friend_requests/request_buttons/add_friend_button", locals: { user: user} %>
           <% elsif user == current_user%>
             <span class="text-2xl text-gray-600"> (me)</span>
