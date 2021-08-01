@@ -38,8 +38,6 @@ task :heroku_help do
 
   puts " "
   puts "Pushing to Development:"
-  puts "  $ git push development main"
-  puts "  $ or"
   puts "  $ git push development development:main"
   puts " "
   puts " "
