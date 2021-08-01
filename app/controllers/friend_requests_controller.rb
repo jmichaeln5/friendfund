@@ -23,11 +23,12 @@ class FriendRequestsController < ApplicationController
   def create
     @friend_request = FriendRequest.new(friend_request_params)
     if @friend_request.save
-      redirect_to @friend_request, notice: "FriendRequest was successfully created."
+      redirect_to request.referrer, notice: "FriendRequest was successfully created."
     else
       redirect_to request.referrer
       @friend_request.errors.full_messages.each.map {|message| flash[:alert] = message }
     end
+
   end
 
   # ####### Admin Create (TEST PURPOSES ONLY!!!!)
@@ -37,16 +38,11 @@ class FriendRequestsController < ApplicationController
 
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json
   def update
-
-    # byebug
-    respond_to do |format|
       if @friend_request.update(friend_request_params)
-        format.html { redirect_to @friend_request, notice: "friend request #{@friend_request.status}" }
-        format.json { render :show, status: :ok, location: @friend_request }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @friend_request.errors, status: :unprocessable_entity }
-      end
+      redirect_to request.referrer, notice: "FriendRequest was successfully updated."
+    else
+      redirect_to request.referrer
+      @friend_request.errors.full_messages.each.map {|message| flash[:alert] = message }
     end
   end
 
@@ -69,4 +65,5 @@ class FriendRequestsController < ApplicationController
     def friend_request_params
       params.require(:friend_request).permit(:requestor_id, :receiver_id, :status)
     end
+
 end

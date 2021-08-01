@@ -1,53 +1,46 @@
-  <div class="container p-4">
-        <div class="p-4 border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
-          <br>
-          <div class="text-4xl">
+<% requested_by_current_user = current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id, receiver_id: user.id ).exists? || current_user.friend_requests_as_requestor.all.where(receiver_id: current_user.id, requestor_id: user.id ).exists? %>
+
+<div class="p-4 border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+
+    <div class="text-3xl pb-2">
+      <div class="px-3 ">
+        <div class="row justify-content-between">
+
+          <% if locale_to != "Users#show" %>
+            <%= link_to "#{user.name}", user_path(user) %>
+          <% else %>
             <%= user.name%>
-          </div>
-          <div class=" border border-white">
-            <div class="p-4">
-
-              <p class="text-2xl">
-                User Requested by current_user?
-                <% requested_by_current_user = current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id, receiver_id: user.id ).exists? %>
-                <%= requested_by_current_user %>
-              </p>
-
-              <p class="w-1/2	text-sm">
-                requested_by_current_user =
-                <br>
-                current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id, receiver_id: user.id ).exists?
-              </p>
-            </div>
-
-          </div>
-          <br>
-          <div class="text-2xl">
-            <% if locale_to != "Users#show" %>
-              <%= link_to "#{user.name}", user_path(user) %>
-            <% else %>
-              <%= user.name%>
-            <% end %>
-          </div>
-
-          <% if requested_by_current_user == false %>
-          <%= render :partial => "friend_requests/request_buttons/add_friend_button", locals: { user: user}%>
           <% end %>
 
-          <div>
-            email: <%= user.email %>
-          </div>
-          <div>
-            username: <%= user.username %>
-          </div>
-          <div>
-            phone_number: <%= user.phone_number %>
-          </div>
+          <% if (requested_by_current_user == false) && ( user != current_user) %>
+            <%= render :partial => "friend_requests/request_buttons/add_friend_button", locals: { user: user} %>
+          <% elsif user == current_user%>
+            <span class="text-2xl text-gray-600"> (me)</span>
+          <% elsif (requested_by_current_user == true) && ( user != current_user) %>
 
-          <br>
-          <div class=" p-4 border border-white">
-           <%= user.inspect %>
-          </div>
+            <span class="text-2xl text-gray-600"> requested</span>
 
+            <%#= render :partial => "friend_requests/request_buttons/delete_request_button", locals: { user:user} %>
+
+
+          <% end %>
         </div>
+      </div>
     </div>
+
+    <div class="p-4 border-2 border-gray-200">
+      <div>
+        email: <%= user.email %>
+      </div>
+      <div>
+        username: <%= user.username %>
+      </div>
+      <div>
+        phone_number: <%= user.phone_number %>
+      </div>
+    </div>
+
+</div>
+
+<br>
+<br>

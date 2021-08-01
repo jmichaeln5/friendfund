@@ -21,7 +21,8 @@
 
   <body class="bg-indigo-100">
 
-    <%= render "shared/navbar"%>
+    <%#= render "shared/navbar"%>
+    <%= render "shared/navbar2"%>
 
     <div class="font-sans h-screen w-full">
      <div class="h-screen bg-gradient-to-r from-green-400 to-blue-500">
@@ -30,7 +31,7 @@
 
            <%= render partial: "shared/flash"%>
            <h1 class="text-center animate-pulse font-bold text-gray-200 text-2xl mb-6">
-            Welcome <%= current_user.name.familiar if current_user%>
+            Welcome <%= current_user.name if current_user%>
             <br/>
             Locale To: <%= locale_to %>
            </h1>
