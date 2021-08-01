@@ -13,16 +13,14 @@ class FriendRequest < ApplicationRecord
 
   def check_request_actor
     if (self.class.all.where(requestor_id: self.receiver_id, receiver_id: self.requestor_id ).any?) ==  true
-      # throw(:abort)
-      self.errors.add(:base, "You've already sent a friend request to this user.")
+      self.errors.add(:base, "Invalid Action, Friend Request already exists.")
       throw(:abort)
     end
   end
 
   def check_request_receiver
     if (self.class.all.where(receiver_id: self.requestor_id, requestor_id: self.receiver_id ).any? )  ==  true
-      # throw(:abort)
-      self.errors.add(:base, "Active Friend Request already exists.")
+      self.errors.add(:base, "Invalid Action, Friend Request already exists.")
       throw(:abort)
     end
   end
