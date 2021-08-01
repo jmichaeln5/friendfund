@@ -2,7 +2,7 @@
 
 <% received_request_from_user = current_user.friend_requests_as_receiver.all.where(requestor_id: user.id).all.where(receiver_id: current_user.id).any? %>
 
-<% if received_request_from_user %>
+<!-- <% if received_request_from_user %>
   <% received_request_id = current_user.friend_requests_as_receiver.all.where(requestor_id: user.id).all.where(receiver_id: current_user.id).first.id  %>
   <div class="">
   <p class="float-right px-2"> Friend Request ID: <%= received_request_id %></p>
@@ -20,7 +20,7 @@
   <p class="float-right px-2"> current_user ID: <%= current_user.id %></p>
   </div>
   <br>
-<% end %>
+<% end %> -->
 
 
 <div class="p-4 border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
@@ -36,23 +36,14 @@
           <% end %>
 
           <% if user == current_user %>
-              <span class="text-2xl text-gray-600"> (me)</span>
-              <!-- <h1> me == true</h1> -->
-
+              <span class="pt-3 text-sm text-gray-600"> (me)</span>
           <% elsif (sent_request_to_user == true) %>
-
-              <span class="text-2xl text-gray-600"> pending</span>
-              <!-- <h1>sent_request_to_user == true </h1> -->
-
+              <span class="pt-3 text-sm text-gray-600"> pending</span>
           <% elsif (received_request_from_user == true) %>
-
-            <span class="text-2xl text-gray-600"> accept request</span>
-            <!-- <h1>received_request_from_user == true</h1> -->
-
+            <span class="pt-3 text-sm text-gray-600"> accept request</span>
             <%#= render :partial => "friend_requests/request_buttons/delete_request_button", locals: { user:user} %>
           <% else  %>
             <%= render :partial => "friend_requests/request_buttons/add_friend_button", locals: { user: user} %>
-
           <% end %>
         </div>
       </div>
@@ -69,6 +60,32 @@
         phone_number: <%= user.phone_number %>
       </div>
     </div>
+
+    <% if received_request_from_user %>
+      <% received_request_id = current_user.friend_requests_as_receiver.all.where(requestor_id: user.id).all.where(receiver_id: current_user.id).first.id  %>
+      <div class="row p-4 ">
+        <div class="row p-4 border-2 border-gray-200">
+          Friend Req Info: <br>
+          Friend Request ID: <%= received_request_id %>
+          (Partial) User ID: <%= user.id %>
+          current_user ID: <%= current_user.id %>
+        </div>
+      </div>
+      <br>
+    <% end %>
+
+    <% if sent_request_to_user %>
+      <% sent_request_id = current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id).all.where(receiver_id: user.id).first.id %>
+      <div class="row p-4 ">
+        <div class="row p-4 border-2 border-gray-200">
+          Friend Req Info: <br>
+          Friend Request ID: <%= sent_request_id %>
+          (Partial) User ID: <%= user.id %>
+          current_user ID: <%= current_user.id %>
+        </div>
+      </div>
+      <br>
+    <% end %>
 
 </div>
 
