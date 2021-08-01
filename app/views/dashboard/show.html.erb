@@ -1,8 +1,25 @@
-  Name: <%= @user.name %>
-  <br/>
-  Email: <%= @user.email %>
-  <br/>
-  Username: <%= @user.username %>
-  <br/>
-  Phone Number: <%= @user.phone_number %>
-  <br/>
+<h1>Dashboard#show</h1>
+<p> Find me in app/views/dashboard/show.html.erb</p>
+
+<%= link_to 'admin friend requests', admin_friend_request_path, class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+<br>
+<%= link_to 'friend requests', user_friend_requests_path(current_user), class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+<br>
+<%= link_to 'users', users_path, class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+
+<hr>
+
+<div class="p-2">
+    Name: <%= current_user.name %>
+    <br/>
+    Email: <%= current_user.email %>
+    <br/>
+    Username: <%= current_user.username %>
+    <br/>
+    Phone Number: <%= current_user.phone_number %>
+    <br/>
+</div>
+
+<br>
+
+  <%= render partial: "users/user", collection: @users, locals: {user: @user} %>

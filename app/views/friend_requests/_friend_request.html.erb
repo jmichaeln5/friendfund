@@ -1,0 +1,16 @@
+<% if (current_user.id == friend_request.requestor_id) %>
+
+<%= You sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
+
+<% else %>
+
+<%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
+
+<% end %>
+
+
+<br>
+<%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
+<br>
+<p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
+<hr>

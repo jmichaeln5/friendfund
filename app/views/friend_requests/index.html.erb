@@ -1,0 +1,81 @@
+<h1>Friend Requests Index</h1>
+<br>
+<div class="p-4">
+  <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
+
+    <div class="px-4 row justify-content-between text-3xl">
+      <span>
+        <p class="text-3xl">My Friend Requests</p>
+      </span>
+      <span>
+        <p class="text-3xl"> <%= current_user.friend_requests.count%> Friend Requests</p>
+      </span>
+    </div>
+
+    <% current_user.friend_requests.reverse.each do |friend_request| %>
+    <hr>
+
+    <div class="px-4 row justify-content-between">
+      <span>
+        <br>
+        <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
+        <br>
+        <%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
+      </span>
+      <span class="pt-2">
+        <br>
+        <%= link_to 'remove', friend_request, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
+      </span>
+    </div>
+
+    <p class="text-sm text-gray-800 p-2"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
+
+    <% end %>
+
+
+    <%#= render "friend_requests/as_requestor" %>
+    <%#= render "friend_requests/as_receiver" %>
+    <%#= render "friend_requests/as_requestor_or_receiver_card" %>
+  </div>
+</div>
+
+
+
+<div class="p-4">
+  <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
+    <div class="px-4 row justify-content-between text-3xl">
+      <span>
+        <p class="text-3xl">All Friend Requests (For Entire App) </p>
+      </span>
+      <span>
+        <p class="text-3xl"> <%= @friend_requests.reverse.count%> Friend Requests</p>
+      </span>
+    </div>    <% @friend_requests.each do |friend_request| %>
+    <hr>
+
+    <div class="px-4 row justify-content-between">
+      <span>
+        <br>
+        <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
+        <br>
+        <%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
+      </span>
+      <span class="pt-2">
+        <br>
+        <%= link_to 'remove', friend_request, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
+      </span>
+    </div>
+
+    <p class="text-sm text-gray-800 p-2"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
+
+    <% end %>
+
+
+    <%#= render "friend_requests/as_requestor" %>
+    <%#= render "friend_requests/as_receiver" %>
+    <%#= render "friend_requests/as_requestor_or_receiver_card" %>
+    <!-- <p class="text-3xl">All Friend Requests (For Entire App) </p> -->
+  </div>
+</div>
+
+<br>

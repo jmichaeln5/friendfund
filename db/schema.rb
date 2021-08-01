@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_06_135015) do
+ActiveRecord::Schema.define(version: 2021_07_26_225715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.bigint "requestor_id", null: false
+    t.bigint "receiver_id", null: false
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receiver_id"], name: "index_friend_requests_on_receiver_id"
+    t.index ["requestor_id"], name: "index_friend_requests_on_requestor_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "friend_a_id", null: false
+    t.bigint "friend_b_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["friend_a_id"], name: "index_friendships_on_friend_a_id"
+    t.index ["friend_b_id"], name: "index_friendships_on_friend_b_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -43,4 +62,8 @@ ActiveRecord::Schema.define(version: 2021_07_06_135015) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "friend_requests", "users", column: "receiver_id"
+  add_foreign_key "friend_requests", "users", column: "requestor_id"
+  add_foreign_key "friendships", "users", column: "friend_a_id"
+  add_foreign_key "friendships", "users", column: "friend_b_id"
 end

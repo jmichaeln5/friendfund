@@ -1,0 +1,10 @@
+<%= form_with(model: friend_request) do |form| %>
+    <%= form.hidden_field :status, value: "accepted" %>
+
+    <div class="actions btn btn-outline-primary">
+      <%= button_tag(type: 'submit') do %>
+        accept
+      <% end %>
+    </div>
+
+<% end %>
