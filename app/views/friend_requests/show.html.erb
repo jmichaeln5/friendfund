@@ -1,25 +1,29 @@
-<h1>Friend Requests Show</h1>
+<!-- <%#= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.requestor) %> sent a Request to <%#= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver) %> -->
 
-<p>
-  <strong>requestor_id:</strong>
-  <%= @friend_request.requestor_id %>
-</p>
+<% if (current_user.id == @friend_request.requestor_id) %>
 
-<p>
-  <strong>receiver_id:</strong>
-  <%= @friend_request.receiver_id %>
-</p>
-
-<p>
-  <strong>status:</strong>
-  <%= @friend_request.status %>
-</p>
-
-<%# @requested_by_current_user = user.friend_requests_as_receiver.where(requestor_id: current_user.id).first if user.friend_requests_as_receiver.where(requestor_id: current_user.id).present? %>
-
-<%#= render "friend_request"%>
+  <%= link_to "You", user_path(@friend_request.requestor) %> sent a friend request to <%= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver) %>
 
 
-<%#= render "friend_requests/request_buttons/display_buttons" %>
+<% elsif (current_user.id == @friend_request.receiver_id) %>
 
-<%= render "friend_requests/request_buttons/admin_display_buttons" %>
+  <%= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver_id) %>  sent you a friend request
+
+<% else %>
+
+<%= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.requestor) %> sent <%= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver) %> a <%= link_to "friend request", friend_request_path(@friend_request) %>
+
+
+<% end %>
+<br>
+<%= "Request: #{@friend_request.status.capitalize}" %>
+<br>
+<p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(@friend_request.created_at)} ago" %> </p>
+<hr>
+
+<%#= render :partial => "friend_requests/request_buttons/cancel_button", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} if current_user == @friend_request.requestor %>
+
+<%#= render :partial => "friend_requests/request_buttons/delete_request_button", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} if current_user == @friend_request.requestor %>
+
+
+<%= render :partial => "friend_requests/options_modal", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} %>

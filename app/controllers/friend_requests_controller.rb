@@ -1,6 +1,6 @@
 class FriendRequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_friend_request, only: %i[ show edit update destroy ]
+  before_action :set_friend_request, only: %i[ show update destroy ]
 
   # GET /friend_requests or /friend_requests.json
   def index
@@ -9,15 +9,14 @@ class FriendRequestsController < ApplicationController
 
   # GET /friend_requests/1 or /friend_requests/1.json
   def show
+    @friend_request = FriendRequest.find(params[:id])
+    friend_request = @friend_request
   end
 
   # GET /friend_requests/new
   def new
     @friend_request = FriendRequest.new
-  end
-
-  # GET /friend_requests/1/edit
-  def edit
+    friend_request = FriendRequest.new
   end
 
   def create
@@ -29,11 +28,6 @@ class FriendRequestsController < ApplicationController
       @friend_request.errors.full_messages.each.map {|message| flash[:alert] = message }
     end
 
-  end
-
-  # ####### Admin Create (TEST PURPOSES ONLY!!!!)
-  def admin_friend_request
-    @friend_request = FriendRequest.new
   end
 
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json

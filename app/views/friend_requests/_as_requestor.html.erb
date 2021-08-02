@@ -1,46 +1,35 @@
-<div class="text-2xl"> <%= "#{current_user.friend_requests_as_requestor.count} Requests Sent" %>
-  <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#friendRequestAsRequestorModal">
-    my requests
+  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#friendRequestAsRequestorModal">
+    <!-- Requested -->
+    As Requestor
+
   </button>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="friendRequestAsRequestorModal" tabindex="-1" role="dialog" aria-labelledby="friendRequestAsRequestorModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="friendRequestAsRequestorModalLabel">Friend Requests Sent</h5>
+        <h5 class="modal-title" id="friendRequestAsRequestorModalLabel">Friend Request</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
         <div class="modal-body">
 
-          <% current_user.friend_requests_as_requestor.reverse.each do |friend_request| %>
-
           <div class="pb-4">
             <div class="card p-4">
 
-              <span class="text-xl">
-
-
-                <%= link_to "You", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
-                <br>
-                <%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
-                <br>
-                <p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
-                <hr>
-
-
-             </span>
+              <div>
+                <%= render :partial => "friend_requests/request_buttons/cancel_button", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} %>
+              </div>
 
               <div>
-                <%= link_to 'Destroy', friend_request, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <%= render :partial => "friend_requests/request_buttons/delete_request_button", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} %>
               </div>
+
             </div>
           </div>
 
-          <% end %>
 
         </div>
 
