@@ -22,7 +22,10 @@ class FriendRequestsController < ApplicationController
   def create
     @friend_request = FriendRequest.new(friend_request_params)
     if @friend_request.save
-      redirect_to request.referrer, notice: "FriendRequest was successfully created."
+
+      Notification.create(recipient: @friend_request.receiver, actor: @friend_request.requestor, action:'requested', notifiable: @friend_request )
+
+      redirect_to request.referrer, notice: "friend request sent."
     else
       redirect_to request.referrer
       @friend_request.errors.full_messages.each.map {|message| flash[:alert] = message }
@@ -33,7 +36,7 @@ class FriendRequestsController < ApplicationController
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json
   def update
       if @friend_request.update(friend_request_params)
-      redirect_to request.referrer, notice: "FriendRequest was successfully updated."
+      redirect_to request.referrer, notice: "friend request #{@friend_request.status}."
     else
       redirect_to request.referrer
       @friend_request.errors.full_messages.each.map {|message| flash[:alert] = message }
@@ -44,7 +47,7 @@ class FriendRequestsController < ApplicationController
   def destroy
     @friend_request.destroy
     respond_to do |format|
-      format.html { redirect_to user_friend_requests_path(current_user), notice: "FriendRequest was successfully destroyed." }
+      format.html { redirect_to user_friend_requests_path(current_user), notice: "friend request removed." }
       format.json { head :no_content }
     end
   end

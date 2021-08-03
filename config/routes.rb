@@ -32,8 +32,12 @@ Rails.application.routes.draw do
 ### Only for Admin Create
   resources :friend_requests, only: :create # Only used form admin_friend_request
   get '/admin_friend_request', to: 'friend_requests#admin_friend_request', as: 'admin_friend_request'
-### Only for Admin Create
 
+  resources :notifications do
+    collection do
+      post :mark_as_read
+    end
+  end
 
 
 

@@ -6,34 +6,35 @@
 <br>
 <div class="p-4">
   <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
-
     <div class="px-4 row justify-content-between text-3xl">
+        My Friend Requests
       <span>
-        <p class="text-3xl">My Friend Requests</p>
-      </span>
-
-      <span>
-        <p class="text-3xl"> <%= current_user.friend_requests.count%> Friend Requests</p>
+        <%= current_user.friend_requests.count%> Friend Requests
       </span>
     </div>
 
     <% current_user.friend_requests.reverse.each do |friend_request| %>
-    <hr>
-    <div class="px-4 row justify-content-between">
-      <span>
-        <br>
-        <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
-        <br>
-        <%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
-      </span>
-      <span class="pt-2">
-        <br>
-        <%= link_to 'remove', friend_request, method: :delete, data: { confirm: 'Are you sure you would like to cancel this friend request?' }, class:"btn btn-outline-danger" %>
+      <hr>
+      <br>
+      <div class="px-4 row justify-content-between">
+        <span>
+          <% if (current_user.id == friend_request.requestor_id) %>
+          <!-- If current user is requestor -->
+            <%= link_to "You", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
+          <% elsif (current_user.id == friend_request.receiver_id) %>
+          <!-- If current user is receiver -->
+            <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent  <%= link_to "you", user_path(friend_request.receiver) %> a <%= link_to "friend request", friend_request_path(friend_request) %>
+          <% end %>
+          <br>
+          <%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
+          <p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
 
-      </span>
-    </div>
-    <p class="text-sm text-gray-800 p-2"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
+        </span>
 
+        <span class="pt-2">
+          <%= link_to 'remove', friend_request, method: :delete, data: { confirm: 'Are you sure you would like to cancel this friend request?' }, class:"btn btn-outline-danger" %>
+        </span>
+      </div>
     <% end %>
 
   </div>

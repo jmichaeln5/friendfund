@@ -9,6 +9,8 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { minimum: 2, maximum: 30 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 30 }
 
+  has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
+
   has_many :friend_requests_as_requestor, foreign_key: :requestor_id, class_name: :FriendRequest, dependent: :destroy
   has_many :friend_requests_as_receiver, foreign_key: :receiver_id, class_name: :FriendRequest, dependent: :destroy
 

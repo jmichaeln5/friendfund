@@ -27,11 +27,19 @@
           <%= link_to 'about', pages_about_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
         </li>
 
-      <% else %>
+      <% end %>
+
+      <% if user_signed_in? %>
 
         <li class="nav-item">
           <%= link_to 'dashboard', dashboard_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
         </li>
+
+        <li class="nav-item ">
+            <%= render "notifications/index", locals: { user: current_user} %>
+        </li>
+
+
         <li class="nav-item">
           <%= link_to 'Users#index', users_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
         </li>
@@ -39,6 +47,7 @@
         <li class="nav-item">
           <%= link_to 'friend requests', user_friend_requests_path(current_user), class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
         </li>
+
       <% end %>
 
 

@@ -1,0 +1,53 @@
+<!-- Button trigger modal -->
+
+<% if (current_user.notifications.where(recipient: current_user.id).any?) && (current_user.notifications.where(recipient: current_user.id).unread.count > 0) %>
+
+  <span style="width:20%; height:20%;" class="">
+  <li type="button" class="nav-link px-4 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md text-xs " data-toggle="modal" data-target="#notificationsModal">
+    <div class="row ">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+      </svg>
+
+      <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full"> <%= current_user.notifications.where(recipient: current_user.id).unread.count %> </span>
+    </div>
+  </li>
+  </span>
+
+
+<!-- Modal -->
+<div class="modal fade" id="notificationsModal" tabindex="-1" role="dialog" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificationsModalLabel">
+          <%= current_user.notifications.where(recipient: current_user.id).unread.count %>
+          new
+          <%= current_user.notifications.where(recipient: current_user.id).unread.count == 1 ? "notification" : "notifications" %>
+        </h5>
+      </div>
+      <div class="modal-body">
+          <% current_user.notifications.where(recipient: current_user.id).unread.each do |notification| %>
+
+          <div class="row">
+            <div class="px-4">
+              new <%= link_to "#{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to "#{notification.actor.name}", notification.actor %>
+            </div>
+          </div>
+          <hr>
+
+          <% end %>
+          <div class="text-center">
+            <%#= link_to 'mark all as read', mark_as_read_notifications_path, method: :post, data: { confirm: 'mark as read?' }, class:"text-center" %>
+            <%= link_to 'mark all as read', mark_as_read_notifications_path, method: :post, class:"text-center btn btn-outline-primary" %>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% end %>
