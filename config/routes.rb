@@ -36,8 +36,10 @@ Rails.application.routes.draw do
   resources :notifications do
     collection do
       post :mark_as_read
+      post :mark_all_as_read
     end
   end
+  get '/all_notifications', to: 'notifications#all_notifications', as: 'all_notifications'
 
 
 

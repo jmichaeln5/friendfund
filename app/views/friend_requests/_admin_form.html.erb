@@ -7,12 +7,12 @@
 
       <div class="field">
         <%= form.label "Requestor" %>
-        <%= form.select :requestor_id, User.all.collect { |user| [ user.username, user.id ] } %>
+        <%= form.select :requestor_id, User.all.order(:id).collect { |user| [ user.username, user.id ] } %>
       </div>
 
       <div class="field">
         <%= form.label :receiver_id %>
-        <%= form.select :receiver_id, User.all.collect { |user| [ user.username, user.id ] } %>
+        <%= form.select :receiver_id, User.all.order(:id).collect  { |user| [ user.username, user.id ] } %>
       </div>
 
       <div class="field">
