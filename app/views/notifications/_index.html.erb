@@ -27,12 +27,18 @@
         </h5>
       </div>
       <div class="modal-body">
+
           <% current_user.notifications.where(recipient: current_user.id).unread.each do |notification| %>
 
           <div class="row">
             <div class="px-4">
               new <%= link_to "#{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to "#{notification.actor.name}", notification.actor %>
             </div>
+            <!-- <div class="px-4">
+              <span>
+                <%#= link_to 'mark as read', mark_as_read_notifications_path, method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+              </span>
+            </div> -->
           </div>
           <hr>
 

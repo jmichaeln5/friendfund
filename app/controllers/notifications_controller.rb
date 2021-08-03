@@ -12,6 +12,5 @@ class NotificationsController < ApplicationController
 
     redirect_to request.referrer, notice: "notifications marked as read."
 
-
   end
 end
