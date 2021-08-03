@@ -9,6 +9,16 @@ class FriendRequest < ApplicationRecord
   belongs_to :requestor, class_name: :User
   belongs_to :receiver, class_name: :User
 
+
+  ############
+  # has_many :users, through: :friend_requests
+  # has_many :followers, :class_name => 'User', :through => :friendships, :foreign_key => 'friend_id'
+  # has_and_belongs_to_many :users, class_name: :User, through: :friend_requests
+  # has_one :actor, through: :notifications
+  # has_one :recipient, through: :notifications
+  # has_many :users, class_name: :User, through: self
+  ############
+
   validate :disallow_self_referential_friendship
 
   def check_request_actor

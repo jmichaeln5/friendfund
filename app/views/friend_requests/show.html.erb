@@ -1,18 +1,24 @@
 <!-- <%#= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.requestor) %> sent a Request to <%#= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver) %> -->
 
+<div class="text-2xl">
+  <%= "#{@friend_request.receiver.name}" %>
+</div>
+
 <% if (current_user.id == @friend_request.requestor_id) %>
+<!-- If current user is requestor -->
 
   <%= link_to "You", user_path(@friend_request.requestor) %> sent a friend request to <%= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver) %>
-
+  <!-- <%= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.requestor) %> sent a friend request to <%= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver) %> -->
 
 <% elsif (current_user.id == @friend_request.receiver_id) %>
+<!-- If current user is receiver -->
 
-  <%= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver_id) %>  sent you a friend request
+  <!-- <%= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.receiver_id) %>  sent you a friend request -->
+  <%= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.requestor) %> sent  <%= link_to "you", user_path(@friend_request.receiver) %> a friend request
 
 <% else %>
 
 <%= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.requestor) %> sent <%= link_to "#{@friend_request.receiver.name}", user_path(@friend_request.receiver) %> a <%= link_to "friend request", friend_request_path(@friend_request) %>
-
 
 <% end %>
 <br>
