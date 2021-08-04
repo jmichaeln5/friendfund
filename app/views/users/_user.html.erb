@@ -66,7 +66,7 @@
     </div>
 
     <div class="p-4 border-2 border-gray-200">
-      <div>  <span class="font-bold "> <%= user.name %> Info: </span> </div>
+      <div>  <span class="font-medium "> <%= user.name %> Info: </span> </div>
       <div> email: <%= user.email %> </div>
       <div> username: <%= user.username %> </div>
       <div> phone_number: <%= user.phone_number %> </div>
@@ -75,7 +75,7 @@
     <% if received_request_from_user %>
       <div class=" p-4 ">
         <div class="row p-4 border-2 border-gray-200 text-center">
-          <div class="font-bold pr-2 ">Received Friend Request Info: </div>
+          <div class="font-medium pr-2 ">Received Friend Request Info: </div>
           <div class="pl-2"> Friend Request ID: <%= received_request_id %> </div>
           <div class="pl-2"> (Partial) User ID: <%= user.id %> </div>
           <div class="pl-2"> current_user ID: <%= current_user.id %> </div>
@@ -87,7 +87,7 @@
     <% if sent_request_to_user %>
       <div class=" p-4 ">
         <div class="row p-4 border-2 border-gray-200 text-center">
-          <div class="font-bold pr-2">Sent Friend Request Info:</div>
+          <div class="font-medium pr-2">Sent Friend Request Info:</div>
           <div class="pl-2"> Friend Request ID: <%= sent_request_id %> </div>
           <div class="pl-2"> (Partial) User ID: <%= user.id %> </div>
           <div class="pl-2"> current_user ID: <%= current_user.id %> </div>

@@ -1,70 +1,63 @@
+<!-- Unread Notifications -->
 <% if (Notification.all.where(recipient: current_user.id).any?) %>
-<% @unread_notifications = Notification.all.where(recipient: current_user.id).unread %>
+<% @unread_notifications = Notification.all.where(recipient: current_user.id).unread.order('created_at DESC') %>
 
-<h1> <%= @unread_notifications.count %> Unread Notifications</h1>
-<% @unread_notifications.each do |notification| %>
+  <div class="grid grid-cols-6 gap-6">
+    <div class="col-start-1 col-end-3 ">
+      <p class="flex flex-nowrap text-2xl text-center">
+        <%= @unread_notifications.count %> unread <%= @unread_notifications.count == 1 ? "notification" : "notifications" %>
+      </p>
+    </div>
 
-<div class="row">
-  <div class="px-4">
-
-
-    <h6>NOTIFICATION ID: <%= notification.id %> </h6>
-    <h6>NOTIFICATION actor_id: <%= notification.actor_id %> </h6>
-    <h6>NOTIFICATION recipient_id: <%= notification.recipient_id %> </h6>
-    <h6>NOTIFIABLE TYPE: <%= notification.notifiable.class.to_s.underscore.humanize %> </h6>
-    <br>
-
-    new <%= link_to "#{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to "#{notification.actor.name}", notification.actor %>
+    <div class=" col-end-8 pt-2">
+      <% if @unread_notifications.any? %>
+      <%= link_to 'mark all as read', mark_all_as_read_notifications_path, method: :post %>
+      <% end %>
+    </div>
   </div>
-  <div class="px-4">
-    <span>
-      <%#= link_to 'mark as read', mark_as_read_notifications_path, method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
 
-      <%#= render "notifications/form", locals: { notification: notification, actor_id: notification.actor_id, recipient_id: notification.recipient_id} %>
+  <% @unread_notifications.each do |notification| %>
+    <div class="grid grid-cols-6 gap-6">
+      <div class="col-start-1 col-end-6 ">
+        <p>
+          new <%= link_to " #{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to " #{notification.actor.name}", notification.actor %>
+          <p class="text-xs text-gray-800 font-thin -mt-4"> <%=  "#{time_ago_in_words(notification.created_at)} ago" %> </p>
+        </p>
+      </div>
 
-  <%= render 'notifications/form', notification: notification %>
+      <div class=" col-end-8 pt-2">
+        <%= link_to "mark as read", mark_as_read_path(notification), method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-xs font-medium"  %>
+      </div>
+    </div>
 
-    </span>
-  </div>
-</div>
+  <% end %>
+<% end %>
+
+<!-- Earlier Notifications -->
+<% if (Notification.all.where(recipient: current_user.id).where("notifications.read_at IS NOT NULL").any?) %>
+<% @notifications = Notification.all.where(recipient: current_user.id).where("notifications.read_at IS NOT NULL").order('created_at DESC') %>
+
 <hr>
 
-<% end %>
-<div class="text-center">
-  <%#= link_to 'mark all as read', mark_as_read_notifications_path, method: :post, data: { confirm: 'mark as read?' }, class:"text-center" %>
-  <%= link_to 'mark all as read', mark_all_as_read_notifications_path, method: :post, class:"text-center btn btn-outline-primary" %>
-</div>
-<br>
-<% end %>
-
-
-
-<% if (Notification.all.where(recipient: current_user.id).any?) %>
-<% @notifications = Notification.all.where(recipient: current_user.id) %>
-
-<h1> <%= @notifications.count %> Notifications in total</h1>
-
-<% @notifications.each do |notification| %>
-
-<div class="row">
-  <div class="px-4">
-    <h6>NOTIFICATION ID: <%= notification.id %> </h6>
-    new <%= link_to "#{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to "#{notification.actor.name}", notification.actor %>
-  </div>
-  <div class="px-4">
-    <span>
-      <%#= link_to 'mark as read', mark_as_read_notifications_path, method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
-
-      <%= link_to "mark as read", mark_as_read_notifications_path(notification.id), method: :post %>
-    </span>
+<div class="grid grid-cols-6 gap-6">
+  <div class="col-start-1 col-end-3 ">
+    <p class="flex flex-nowrap text-2xl text-center"> Earlier</p>
   </div>
 </div>
-<hr>
 
-<% end %>
-<div class="text-center">
-  <%#= link_to 'mark all as read', mark_as_read_notifications_path, method: :post, data: { confirm: 'mark as read?' }, class:"text-center" %>
-  <%= link_to 'mark all as read', mark_all_as_read_notifications_path, method: :post, class:"text-center btn btn-outline-primary" %>
-</div>
+  <% @notifications.each do |notification| %>
 
+    <div class="row">
+      <div class="px-4 pb-2">
+        new <%= link_to "#{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to "#{notification.actor.name}", notification.actor %>
+      </div>
+
+      <div class="px-4">
+        <span>
+
+        </span>
+      </div>
+    </div>
+
+  <% end %>
 <% end %>

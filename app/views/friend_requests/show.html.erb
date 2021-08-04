@@ -14,7 +14,7 @@
 <!-- If current user is receiver -->
 
   <!-- <%= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.receiver_id) %>  sent you a friend request -->
-  <%= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.requestor) %> sent  <%= link_to "you", user_path(@friend_request.receiver) %> a friend request
+  <%= link_to "#{@friend_request.requestor.name}", user_path(@friend_request.requestor) %> sent  <%= link_to "You", user_path(@friend_request.receiver) %> a friend request
 
 <% else %>
 

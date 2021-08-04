@@ -30,11 +30,12 @@
        <div class="relative w-full">
 
            <%= render partial: "shared/flash"%>
-           <h1 class="text-center animate-pulse font-bold text-gray-200 text-2xl mb-6">
+           <p class="text-center animate-pulse font-bold text-gray-200 text-2xl mb-6">
             Welcome <%= current_user.name if current_user%>
             <br/>
-            Locale To: <%= locale_to %>
-           </h1>
+            Locale To:
+            <%= locale_to %>
+          </p>
 
           <div class="container">
 
@@ -59,7 +60,7 @@
           <%# end %>
 
 
-            <div class=" bg-gradient-to-r from-green-200 to-blue-300 p-4">
+            <div class=" bg-gradient-to-r from-green-200 to-blue-300 p-4 font-light">
               <%= yield %>
             </div>
 

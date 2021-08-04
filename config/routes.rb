@@ -35,13 +35,12 @@ Rails.application.routes.draw do
 
   resources :notifications do
     collection do
-      post :mark_as_read
       post :mark_all_as_read
     end
   end
+
+  post '/notifications/:id/mark_as_read', to: 'notifications#mark_as_read', as: 'mark_as_read'
   get '/all_notifications', to: 'notifications#all_notifications', as: 'all_notifications'
-
-
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

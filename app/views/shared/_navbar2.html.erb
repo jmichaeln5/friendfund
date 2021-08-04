@@ -6,7 +6,7 @@
       <div class="flex-shrink-0 flex pr-1">
         <li class="no-li-decoration">
           <span class="nav-item">
-            <%= render "notifications/index", locals: { user: current_user} %>
+            <%= render "notifications/notifications_modal", locals: { user: current_user} %>
           </span>
         </li>
       </div>
@@ -43,18 +43,6 @@
         <li class="nav-item">
           <%= link_to 'dashboard', dashboard_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
         </li>
-
-        <!-- <li class="nav-item">
-          <%#= link_to 'all notifications page', all_notifications_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white rounded-md text-sm font-medium' %>
-
-          <li class="no-li-decoration">
-            <span class="nav-item">
-              <span class="nav-link">
-              <%#= render "notifications/all_notifications_modal", locals: { user: current_user} %>
-            </span>
-            </span>
-          </li>
-        </li> -->
 
         <li class="nav-item">
           <%= link_to 'users#index', users_path, class:'nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>

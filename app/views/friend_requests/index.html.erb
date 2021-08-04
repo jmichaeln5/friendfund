@@ -1,5 +1,3 @@
-<h1>Friend Requests Index</h1>
-
 <%= render partial: "friend_requests/admin_form", locals: {friend_request: @friend_request} %>
 
 
@@ -23,7 +21,7 @@
             <%= link_to "You", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
           <% elsif (current_user.id == friend_request.receiver_id) %>
           <!-- If current user is receiver -->
-            <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent  <%= link_to "you", user_path(friend_request.receiver) %> a <%= link_to "friend request", friend_request_path(friend_request) %>
+            <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent  <%= link_to "You", user_path(friend_request.receiver) %> a <%= link_to "friend request", friend_request_path(friend_request) %>
           <% end %>
           <br>
           <%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
@@ -32,7 +30,7 @@
         </span>
 
         <span class="pt-2">
-          <%= link_to 'remove', friend_request, method: :delete, data: { confirm: 'Are you sure you would like to cancel this friend request?' }, class:"btn btn-outline-danger" %>
+          <%= link_to 'remove', friend_request, method: :delete, data: { confirm: 'are you sure you would like to cancel this friend request?' }, class:"btn btn-outline-danger" %>
         </span>
       </div>
     <% end %>
@@ -67,7 +65,7 @@
       </span>
       <span class="pt-2">
         <br>
-        <%= link_to 'remove', friend_request, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
+        <%= link_to 'remove', friend_request, method: :delete, data: { confirm: 'are you sure?' }, class:"btn btn-outline-danger" %>
       </span>
     </div>
     <p class="text-sm text-gray-800 p-2"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>

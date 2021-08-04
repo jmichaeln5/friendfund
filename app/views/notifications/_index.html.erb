@@ -1,71 +1,35 @@
-<!-- Button trigger modal -->
+<% if (Notification.all.where(recipient: current_user.id).any?) %>
+<%# @notifications = Notification.all.where(recipient: current_user.id).unread %>
 
-<% if (current_user.notifications.where(recipient: current_user.id).any?) && (current_user.notifications.where(recipient: current_user.id).unread.count > 0) %>
+<% @notifications.order('created_at DESC').each do |notification| %>
 
-  <% @notifications = current_user.notifications.where(recipient: current_user.id).unread %>
+<div class="row">
 
-  <span style="width:20%; height:20%;" class="">
-  <li type="" class="nav-link px-4 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md text-xs " data-toggle="modal" data-target="#notificationsModal">
-    <div class="row ">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-      </svg>
-
-      <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
-        <%= @notifications.count %>
-      </span>
+<div class="px-3">
+  <div class="grid grid-cols-6 gap-6">
+    <div class="col-start-1 col-end-6 ">
+      <p>
+        new <%= link_to " #{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to " #{notification.actor.name}", notification.actor %>
+        <p class="text-xs text-gray-800 font-thin -mt-4"> <%=  "#{time_ago_in_words(notification.created_at)} ago" %> </p>
+      </p>
     </div>
-  </li>
-  </span>
 
+    <div class="col-start-7 col-end-8 pt-2">
+      <span class="text-center px-1">
+      <%= link_to "mark as read", mark_as_read_path(notification), method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-xs font-medium"  %>
+      </span>
 
-<!-- Modal -->
-<div class="modal fade" id="notificationsModal" tabindex="-1" role="dialog" aria-labelledby="notificationsModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="notificationsModalLabel">
-          <%= @notifications.count %>
-          new
-          <%= @notifications.count == 1 ? "notification" : "notifications" %>
-        </h5>
-      </div>
-      <div class="modal-body">
-
-          <% @notifications.reverse.each do |notification| %>
-
-          <div class="row">
-            <div class="px-4">
-              new <%= link_to "#{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to "#{notification.actor.name}", notification.actor %>
-              <p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(notification.created_at)} ago" %> </p>
-
-            </div>
-            <div class="px-4">
-              <span>
-                <%#= link_to 'mark as read', mark_as_read_notifications_path, method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
-
-                <%#= link_to "mark as read", mark_as_read_notifications_path(notification.id), method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
-
-                <%= render 'notifications/form', notification: notification %>
-
-
-              </span>
-            </div>
-          </div>
-          <hr>
-
-          <% end %>
-          <div class="text-center">
-            <%#= link_to 'mark all as read', mark_as_read_notifications_path, method: :post, data: { confirm: 'mark as read?' }, class:"text-center" %>
-            <%= link_to 'mark all as read', mark_all_as_read_notifications_path, method: :post, class:"text-center btn btn-outline-primary" %>
-          </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
+</div>
+
+</div>
+<hr>
+
+<% end %>
+
+<div class="text-center">
+  <%= link_to 'mark all as read', mark_all_as_read_notifications_path, method: :post, class:"text-center btn btn-outline-primary" %>
 </div>
 
 <% end %>
