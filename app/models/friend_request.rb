@@ -6,9 +6,10 @@ class FriendRequest < ApplicationRecord
   before_save :check_request_status
   before_save :check_request_actor
 
+  before_destroy :yeet_notification
+
   belongs_to :requestor, class_name: :User
   belongs_to :receiver, class_name: :User
-
 
   ############
   # has_many :users, through: :friend_requests
@@ -32,6 +33,20 @@ class FriendRequest < ApplicationRecord
     if (self.class.all.where(receiver_id: self.requestor_id, requestor_id: self.receiver_id ).any? )  ==  true
       self.errors.add(:base, "Invalid Action, Friend Request already exists.")
       throw(:abort)
+    end
+  end
+
+  def yeet_notification
+    if Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id).any?
+      Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id ).each do |notification|
+        puts "Notification == FriendRequest? #{self == notification.notifiable}"
+        if self == notification.notifiable
+          notification.destroy
+          puts "*"*50
+          puts "Associated Notification Destroyed"
+          puts "*"*50
+        end
+      end
     end
   end
 

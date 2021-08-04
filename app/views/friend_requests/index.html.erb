@@ -24,7 +24,7 @@
             <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent  <%= link_to "You", user_path(friend_request.receiver) %> a <%= link_to "friend request", friend_request_path(friend_request) %>
           <% end %>
           <br>
-          <%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
+          <%= "Request: #{friend_request.status.capitalize}" %>
           <p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
 
         </span>
@@ -61,7 +61,7 @@
         <br>
         <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
         <br>
-        <%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
+        <%= "Request: #{friend_request.status.capitalize}" %>
       </span>
       <span class="pt-2">
         <br>

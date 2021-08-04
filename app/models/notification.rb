@@ -7,10 +7,4 @@ class Notification < ApplicationRecord
 
   scope :unread, -> { where(read_at: nil) }
 
-  private
-
-  def verify_single_notification
-    # byebug
-  end
-
 end
