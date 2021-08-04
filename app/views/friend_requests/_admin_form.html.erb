@@ -7,17 +7,17 @@
 
       <div class="field">
         <%= form.label "Requestor" %>
-        <%= form.select :requestor_id, User.all.order(:id).collect { |user| [ user.username, user.id ] } %>
+        <%= form.select :requestor_id, User.all.order(:id).collect { |user| [ user.username, user.id ] }, {}, {class: "form-control"} %>
       </div>
 
       <div class="field">
         <%= form.label :receiver_id %>
-        <%= form.select :receiver_id, User.all.order(:id).collect  { |user| [ user.username, user.id ] } %>
+        <%= form.select :receiver_id, User.all.order(:id).collect  { |user| [ user.username, user.id ] }, {}, {class: "form-control"} %>
       </div>
 
       <div class="field">
         <%= form.label "Status" %>
-        <%= form.select(:status, options_for_select([['Pending', 'pending'],['Accepted','accepted'],['Rejected','rejected']])) %>
+        <%= form.select(:status, options_for_select([['Pending', 'pending'],['Accepted','accepted'],['Rejected','rejected']]), {}, {class: "form-control"}) %>
       </div>
 
       <div class="py-2">

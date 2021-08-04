@@ -1,35 +1,59 @@
-<% if (Notification.all.where(recipient: current_user.id).any?) %>
-<%# @notifications = Notification.all.where(recipient: current_user.id).unread %>
+<% @notifications = Notification.all.where(recipient: current_user.id) %>
+<% @unread_notifications = Notification.all.where(recipient: current_user.id).unread %>
+<% @earlier_notifications = Notification.all.where(recipient: current_user.id).where("notifications.read_at IS NOT NULL").order('created_at DESC') %>
 
-<% @notifications.order('created_at DESC').each do |notification| %>
+<% earlier_notification_or_notifications = (@earlier_notifications.count == 1 ? "notification" : "notifications") %>
+<% unread_notification_or_notifications = (@unread_notifications.count == 1 ? "notification" : "notifications") %>
 
-<div class="row">
+<% if @notifications.any? %>
 
-<div class="px-3">
-  <div class="grid grid-cols-6 gap-6">
-    <div class="col-start-1 col-end-6 ">
-      <p>
-        new <%= link_to " #{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to " #{notification.actor.name}", notification.actor %>
-        <p class="text-xs text-gray-800 font-thin -mt-4"> <%=  "#{time_ago_in_words(notification.created_at)} ago" %> </p>
-      </p>
+    <% @unread_notifications.order('created_at DESC').each do |notification| %>
+    <div class="row">
+
+    <div class="px-3">
+      <div class="grid grid-cols-6 gap-6">
+        <div class="col-start-1 col-end-6 ">
+          <p>
+
+            new <%= link_to " #{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to " #{notification.actor.name}", notification.actor %>
+
+            <p class="text-xs text-gray-800 font-thin -mt-4">
+              <%= "#{time_ago_in_words(notification.created_at)} ago" %>
+            </p>
+
+          </p>
+        </div>
+
+        <div class="col-start-7 col-end-8 pt-2">
+          <span class="text-center px-1">
+          <%= link_to "mark as read", mark_as_read_path(notification), method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-xs font-medium"  %>
+          </span>
+
+        </div>
+      </div>
     </div>
 
-    <div class="col-start-7 col-end-8 pt-2">
-      <span class="text-center px-1">
-      <%= link_to "mark as read", mark_as_read_path(notification), method: :post, class:"text-gray-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-xs font-medium"  %>
-      </span>
-
     </div>
-  </div>
-</div>
-
-</div>
-<hr>
-
+    <hr>
+    <% end %>
 <% end %>
 
 <div class="text-center">
-  <%= link_to 'mark all as read', mark_all_as_read_notifications_path, method: :post, class:"text-center btn btn-outline-primary" %>
-</div>
 
-<% end %>
+  <% if @unread_notifications.any? %>
+
+    <%= link_to 'mark all as read', mark_all_as_read_notifications_path, method: :post, class:"text-center btn btn-outline-primary" %>
+
+  <% elsif @earlier_notifications.any? %>
+
+
+
+    <%= link_to "#{ @earlier_notifications.count } earlier #{ earlier_notification_or_notifications }", all_notifications_path %>
+
+
+  <% else %>
+
+  <%= link_to "no notifications available", all_notifications_path %>
+
+  <% end %>
+</div>
