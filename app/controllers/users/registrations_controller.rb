@@ -5,13 +5,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
 
+  puts "*"*100
   puts "RegistrationsController"
-  puts "*"*2000
-  puts "RegistrationsController"
-  puts "RegistrationsController"
-  puts "RegistrationsController"
-  puts "*"*2000
-  puts "RegistrationsController"
+  puts "*"*100
 
   # GET /resource/sign_up
   def new
