@@ -19,10 +19,12 @@ class FriendRequest < ApplicationRecord
   validates :status, presence: true
   validate :disallow_self_referential_friendship
 
+  after_update :handle_friend_request_cycle
+
   def check_request_receiver
-    puts "*"*100
-    puts " *** Checking Reqeust Actor *** "*100
-    puts "*"*100
+    puts "*"*50
+    puts " *** Checking Reqeust Actor *** "*50
+    puts "*"*50
     if (self.class.all.where(receiver_id: self.requestor_id, requestor_id: self.receiver_id ).any? )  ==  true
       self.errors.add(:base, "Invalid Action, Friend Request already exists.")
       throw(:abort)
@@ -36,7 +38,7 @@ class FriendRequest < ApplicationRecord
         if self == notification.notifiable
           notification.destroy
           puts "*"*50
-          puts "Associated Notification Destroyed"
+          puts " *** Associated Notification Destroyed *** "
           puts "*"*50
         end
       end
@@ -72,4 +74,20 @@ class FriendRequest < ApplicationRecord
         self.status = "pending"
       end
     end
+
+
+    def handle_friend_request_cycle
+      if self.accepted?
+        puts "*"*50
+        puts " *** Request Accepted *** "
+        puts "*"*50
+
+        Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id, created_at: Time.zone.now)
+
+        puts "*"*50
+        puts " *** Friendship created between (friend a)#{self.receiver.name} and (friend b)#{self.requestor.name} *** "
+        puts "*"*50
+      end
+    end
+
 end
