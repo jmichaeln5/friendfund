@@ -59,17 +59,10 @@
           </ul> -->
           <%# end %>
 
-
-            <% if controller_name == 'sessions' %>
+          <% if (@locale_to == 'Registrations#new') || (@locale_to == 'Sessions#new')  %>
               <div class="-m-6">
                 <%= yield %>
               </div>
-
-            <% elsif controller_name == 'registrations'%>
-              <div class="-m-6">
-                <%= yield %>
-              </div>
-
             <% else %>
               <div class=" bg-gradient-to-r from-green-200 to-blue-300 px-2 py-4 font-light">
                 <%= yield %>
