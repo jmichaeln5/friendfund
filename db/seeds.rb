@@ -20,6 +20,20 @@ if  ( User.any? == (false || nil) ) || ( (User.all.count < 1) && (User.all.count
   )
   admin_user.skip_confirmation!
   admin_user.save
+
+  sample_user = User.new(
+      id: 2,
+      first_name: 'Timmy',
+      last_name: "Tables",
+      phone_number: "954"+[*0..3, *0..4].sample(7).join,
+      email: "timmytables@gmail.com",
+      username: "timmyt",
+      password: '123456',
+      password_confirmation: "123456"
+  )
+  sample_user.skip_confirmation!
+  sample_user.save
+
   puts " "
   puts " "
   puts "*"*50
@@ -37,13 +51,19 @@ if  ( User.any? == (false || nil) ) || ( (User.all.count < 1) && (User.all.count
   puts "#{admin_user.inspect}"
   puts "*"*20
   puts " "
+  puts "*"*20
+  puts "#{sample_user.username} created."
+  puts "*"*20
+  puts "#{sample_user.inspect}"
+  puts "*"*20
+  puts " "
 
-  (2..5).each do |id|
+  (3..5).each do |id|
       user = User.new(
           id: id,
           first_name: 'User',
           last_name: "#{id.humanize.capitalize}",
-          phone_number: "954"+[*0..3, *0..4].sample(7).join,
+          phone_number: "305"+[*0..3, *0..4].sample(7).join,
           email: "user#{id}@gmail.com",
           username: "user#{id.humanize}",
           password: '123456',

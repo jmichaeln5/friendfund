@@ -59,9 +59,24 @@
           </ul> -->
           <%# end %>
 
-            <div class=" bg-gradient-to-r from-green-200 to-blue-300 px-2 py-4 font-light">
-              <%= yield %>
-            </div>
+
+            <% if controller_name == 'sessions' %>
+              <div class="-m-6">
+                <%= yield %>
+              </div>
+
+            <% elsif controller_name == 'registrations'%>
+              <div class="-m-6">
+                <%= yield %>
+              </div>
+
+            <% else %>
+              <div class=" bg-gradient-to-r from-green-200 to-blue-300 px-2 py-4 font-light">
+                <%= yield %>
+              </div>
+            <% end %>
+
+
 
             <% if @locale_to != "Pages#home" %>
             <div class="py-4">
@@ -82,10 +97,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
+
+
     <script type="text/javascript">
       setTimeout(function(){
-        $('.msg-container').fadeOut().remove();
-      }, 3000);
+        $('.msg-container').fadeOut();
+      }, 4000).remove();
       // $(".msg-container").delay(4000).fadeOut().remove();
     </script>
 
