@@ -15,21 +15,21 @@
     <!-- Login Form -->
 
 
-        <%= f.text_field :name, autofocus: true, autocomplete: 'name', placeholder:' full name', class:"field fadeIn second widerTextField border border-4  inputText" %>
+        <%= f.text_field :name, autocomplete: 'name', placeholder:' full name', class:"field fadeIn second widerTextField border border-4  inputText" %>
 
         <span class="field">
-          <%= f.email_field :email, autofocus: true, autocomplete: 'email', placeholder:' email', class:"fadeIn third widerTextField border border-4  inputText" %>
+          <%= f.email_field :email, autocomplete: 'email', placeholder:' email', class:"fadeIn third widerTextField border border-4  inputText" %>
         </span>
 
-        <%= f.text_field :phone_number, autofocus: true, autocomplete: "phone number", placeholder:'phone number', class:"field fadeIn fourth widerTextField border border-4  inputText" %>
+        <%= f.text_field :phone_number, autocomplete: "phone number", placeholder:'phone number', class:"field fadeIn fourth widerTextField border border-4  inputText" %>
 
-        <%= f.text_field :username, autofocus: true, autocomplete: 'username', placeholder:'username', class:"field fadeIn fifth widerTextField border border-4  inputText" %>
-
-
-        <%= f.password_field :password, autofocus: true, autocomplete: 'password', placeholder:'password', class:"field fadeIn sixth widerTextField border border-4  inputText" %>
+        <%= f.text_field :username, autocomplete: 'username', placeholder:'username', class:"field fadeIn fifth widerTextField border border-4  inputText" %>
 
 
-        <%= f.password_field :password_confirmation, autofocus: true, autocomplete: 'new-password', placeholder:'password confirmation', class:"field fadeIn seventh widerTextField border border-4  inputText" %>
+        <%= f.password_field :password, autocomplete: 'password', placeholder:'password', class:"field fadeIn sixth widerTextField border border-4  inputText" %>
+
+
+        <%= f.password_field :password_confirmation, autocomplete: 'new-password', placeholder:'password confirmation', class:"field fadeIn seventh widerTextField border border-4  inputText" %>
 
 
         <% if devise_mapping.rememberable? %>

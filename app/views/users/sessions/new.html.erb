@@ -21,16 +21,13 @@
 
 
     <div class="field" name="login" placeholder="login" id="login">
-      <%#= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email', class:"widerTextField", id:"add-sample-email" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: 'email', placeholder:' email', class:"fadeIn third widerTextField border border-4  inputText", id:"add-sample-email" %>
+      <%= f.email_field :email, autocomplete: 'email', placeholder:' email', class:"fadeIn third widerTextField border border-4  inputText", id:"add-sample-email" %>
     </div>
 
 
     <br/>
     <div class="field" id="password" name="login" >
-      <%#= f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class:"widerTextField", id:"add-sample-password" %>
-
-      <%= f.password_field :password, autofocus: true, autocomplete: 'password', placeholder:'password', class:"field fadeIn fourth widerTextField border border-4  inputText", id:"add-sample-password" %>
+      <%= f.password_field :password, autocomplete: 'password', placeholder:'password', class:"field fadeIn fourth widerTextField border border-4  inputText", id:"add-sample-password" %>
     </div>
 
     <% if devise_mapping.rememberable? %>
