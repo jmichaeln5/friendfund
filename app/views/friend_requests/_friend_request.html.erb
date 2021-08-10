@@ -1,15 +1,20 @@
-<% if (current_user.id == friend_request.requestor_id) %>
-  <%= link_to "You", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
-<% else %>
-   <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
+<% if (current_user.id == friend_request.receiver_id) %>
+
+  <div class="p-2 row justify-content-between">
+    <span>
+      <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent  <%= link_to "You", user_path(friend_request.receiver) %> a friend request
+
+      <br>
+      <%= "Request: #{friend_request.status.capitalize}" %>
+      <br>
+      <p class="text-sm text-gray-800">
+        <%= "#{time_ago_in_words(friend_request.created_at)} ago" %>
+      </p>
+    </span>
+
+    <span class="pt-2">
+      <%= render partial: "friend_requests/options_modal", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
+    </span>
+  </div>
+
 <% end %>
-<br>
-<%= "Request: #{friend_request.status.capitalize}" %>
-<br>
-<p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(friend_request.created_at)} ago" %> </p>
-<hr>
-
-<%= link_to 'delete request', friend_request, method: :delete, data: { confirm: 'are you sure?' }, class: 'btn btn-outline-danger' %>
-
-
-<%#= render :partial => "friend_requests/options_modal", locals: { friend_request: @friend_request} %>

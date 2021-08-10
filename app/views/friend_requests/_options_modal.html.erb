@@ -1,13 +1,13 @@
-<% if (current_user.id == @friend_request.requestor_id) %>
+<% if (current_user.id == friend_request.requestor_id) %>
 <!-- REQUESTOR  -->
 <!-- Cancel/Delete -->
-  <%= render :partial => "friend_requests/as_requestor", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} %>
-<% elsif (current_user.id == @friend_request.receiver_id) %>
+  <%= render :partial => "friend_requests/as_requestor_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
+<% elsif (current_user.id == friend_request.receiver_id) %>
 <!-- RECEIVER  -->
 <!-- Accept/Cancel/Delete -->
-  <%= render :partial => "friend_requests/as_receiver", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} %>
+  <%= render :partial => "friend_requests/as_receiver_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
 <% else %>
 <!-- ADMIN -->
 <!-- Accept/Cancel/Delete -->
-<%= render :partial => "friend_requests/as_admin", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} %>
+<%#= render :partial => "friend_requests/as_admin", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
 <% end %>

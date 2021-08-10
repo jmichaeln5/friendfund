@@ -21,60 +21,6 @@ class FriendRequest < ApplicationRecord
 
   after_update :handle_friend_request_cycle
 
-  def check_request_receiver
-    puts " "
-    puts "*"*50
-    puts " *** Checking Reqeust Actor *** "*50
-    puts "*"*50
-    puts " "
-    if (self.class.all.where(receiver_id: self.requestor_id, requestor_id: self.receiver_id ).any? )  ==  true
-      self.errors.add(:base, "Invalid Action, Friend Request already exists.")
-      throw(:abort)
-    end
-  end
-
-  def yeet_notification
-    if Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id).any?
-      Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id ).each do |notification|
-        puts "Notification == FriendRequest? #{self == notification.notifiable}"
-        if self == notification.notifiable
-          notification.destroy
-          puts " "
-          puts "*"*50
-          puts " *** Associated Notification Destroyed *** "
-          puts "*"*50
-          puts " "
-        end
-      end
-    end
-  end
-
-  def mark_notification_as_read
-
-    # byebug
-
-    if Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id).any?
-      Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id ).each do |notification|
-        if (self == notification.notifiable) && (notification.read_at.present? == false )
-          notification.update(read_at: Time.zone.now)
-          puts " "
-          puts "*"*50
-          puts " *** Associated Notification marked as read at #{notification.read_at} *** "
-          puts "*"*50
-          puts " "
-
-        else
-          puts " "
-          puts "*"*50
-          puts " message from mark_notification_as_read: "
-          puts " ...nothing to do "
-          puts "*"*50
-          puts " "
-        end
-      end
-    end
-  end
-
   private
 
     def disallow_self_referential_friendship
@@ -83,19 +29,12 @@ class FriendRequest < ApplicationRecord
       end
     end
 
-
     def check_if_request_exists
-      if (self.class.all.where(requestor_id: self.requestor_id, receiver_id: self.receiver_id ).any?) ==  true
-        self.errors.add(:base, "Invalid Action, Friend Request already exists.")
-        throw(:abort)
-      end
-
-      if (self.class.all.where(requestor_id: self.receiver_id, receiver_id: self.requestor_id ).any?) ==  true
+      if ( (self.class.all.where(requestor_id: self.receiver_id, receiver_id: self.requestor_id ).any?) ==  true ) || ( (self.class.all.where(requestor_id: self.requestor_id, receiver_id: self.receiver_id ).any?) ==  true )
         self.errors.add(:base, "Invalid Action, Friend Request already exists.")
         throw(:abort)
       end
     end
-
 
     def check_request_status
       puts "Checking FriendRequest..."
@@ -105,7 +44,27 @@ class FriendRequest < ApplicationRecord
       end
     end
 
-
+    def auto_mark_notification_as_read
+      if Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id).any?
+        Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id ).each do |notification|
+          if (self == notification.notifiable) && (notification.read_at.present? == false )
+            notification.update(read_at: Time.zone.now)
+            puts " "
+            puts "*"*50
+            puts " *** Associated Notification marked as read at #{notification.read_at} *** "
+            puts "*"*50
+            puts " "
+          else
+            puts " "
+            puts "*"*50
+            puts " message from auto_mark_notification_as_read: "
+            puts " ...nothing to do "
+            puts "*"*50
+            puts " "
+          end
+        end
+      end
+    end
 
     def handle_friend_request_cycle
       # if self.accepted?
@@ -120,7 +79,7 @@ class FriendRequest < ApplicationRecord
       #   puts "*"*50
       # end
 
-      mark_notification_as_read
+      auto_mark_notification_as_read
 
       case self.status
 

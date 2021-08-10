@@ -1,7 +1,6 @@
   <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#friendRequestAsRequestorModal">
     <!-- Requested -->
     As Requestor
-
   </button>
 
 <!-- Modal -->
@@ -20,13 +19,13 @@
             <div class="card p-4">
 
               <div class="row">
-                
+
                 <div>
-                  <%= render :partial => "friend_requests/request_buttons/cancel_button", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} %>
+                  <%= render partial: "friend_requests/request_buttons/cancel_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
                 </div>
 
                 <div>
-                  <%= render :partial => "friend_requests/request_buttons/delete_request_button", locals: { friend_request: @friend_request, requestor_id: @friend_request.requestor.id, receiver_id: @friend_request.receiver.id} %>
+                  <%= render partial: "friend_requests/request_buttons/delete_request_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
                 </div>
 
               </div>

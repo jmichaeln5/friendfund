@@ -5,12 +5,13 @@ class FriendRequestsController < ApplicationController
   # GET /friend_requests or /friend_requests.json
   def index
     @friend_requests = FriendRequest.all.order("created_at DESC")
+    @recieved_friend_requests = FriendRequest.all.where(receiver_id: current_user.id).order("created_at DESC")
   end
 
   # GET /friend_requests/1 or /friend_requests/1.json
   def show
     @friend_request = FriendRequest.find(params[:id])
-    friend_request = @friend_request
+    friend_request = FriendRequest.find(params[:id])
   end
 
   # GET /friend_requests/new
