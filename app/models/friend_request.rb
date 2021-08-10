@@ -22,9 +22,11 @@ class FriendRequest < ApplicationRecord
   after_update :handle_friend_request_cycle
 
   def check_request_receiver
+    puts " "
     puts "*"*50
     puts " *** Checking Reqeust Actor *** "*50
     puts "*"*50
+    puts " "
     if (self.class.all.where(receiver_id: self.requestor_id, requestor_id: self.receiver_id ).any? )  ==  true
       self.errors.add(:base, "Invalid Action, Friend Request already exists.")
       throw(:abort)
@@ -37,9 +39,37 @@ class FriendRequest < ApplicationRecord
         puts "Notification == FriendRequest? #{self == notification.notifiable}"
         if self == notification.notifiable
           notification.destroy
+          puts " "
           puts "*"*50
           puts " *** Associated Notification Destroyed *** "
           puts "*"*50
+          puts " "
+        end
+      end
+    end
+  end
+
+  def mark_notification_as_read
+
+    # byebug
+
+    if Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id).any?
+      Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id ).each do |notification|
+        if (self == notification.notifiable) && (notification.read_at.present? == false )
+          notification.update(read_at: Time.zone.now)
+          puts " "
+          puts "*"*50
+          puts " *** Associated Notification marked as read at #{notification.read_at} *** "
+          puts "*"*50
+          puts " "
+
+        else
+          puts " "
+          puts "*"*50
+          puts " message from mark_notification_as_read: "
+          puts " ...nothing to do "
+          puts "*"*50
+          puts " "
         end
       end
     end
@@ -76,18 +106,64 @@ class FriendRequest < ApplicationRecord
     end
 
 
+
     def handle_friend_request_cycle
-      if self.accepted?
-        puts "*"*50
-        puts " *** Request Accepted *** "
-        puts "*"*50
+      # if self.accepted?
+      #   puts "*"*50
+      #   puts " *** Request Accepted *** "
+      #   puts "*"*50
+      #
+      #   Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id, created_at: Time.zone.now)
+      #
+      #   puts "*"*50
+      #   puts " *** Friendship created between (friend a)#{self.receiver.name} and (friend b)#{self.requestor.name} *** "
+      #   puts "*"*50
+      # end
 
-        Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id, created_at: Time.zone.now)
+      mark_notification_as_read
 
-        puts "*"*50
-        puts " *** Friendship created between (friend a)#{self.receiver.name} and (friend b)#{self.requestor.name} *** "
-        puts "*"*50
+      case self.status
+
+      when 'accepted'
+          puts " "
+          puts "*"*50
+          puts " *** FriendRequest Accepted *** "
+          puts "*"*50
+          puts " "
+          #   Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id, created_at: Time.zone.now)
+          #   Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id)
+          puts " "
+          puts "*"*50
+          #   puts " *** Friendship created between (friend a)#{self.receiver.name} and (friend b)#{self.requestor.name} *** "
+          puts "*"*50
+          puts " "
+        when 'rejected'
+          puts " "
+          puts "*"*50
+          puts " *** FriendRequest rejected *** "
+          puts "*"*50
+          puts " "
+        when 'canceled'
+          puts " "
+          puts "*"*50
+          puts " *** FriendRequest canceled *** "
+          puts "*"*50
+          puts " "
       end
+
+
+
+      # byebug
+
+
+
     end
+
+
+
+
+
+
+
 
 end
