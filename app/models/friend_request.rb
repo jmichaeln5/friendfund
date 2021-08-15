@@ -119,15 +119,27 @@ class FriendRequest < ApplicationRecord
           puts "*"*50
           puts " "
         when 'rejected'
+          # byebug
           puts " "
           puts "*"*50
           puts " *** FriendRequest rejected *** "
           puts "*"*50
           puts " "
+          self.destroy
+          puts "*"*50
+          puts " *** FriendRequest destroyed *** "
+          puts "*"*50
+          puts " "
         when 'canceled'
+          # byebug
           puts " "
           puts "*"*50
           puts " *** FriendRequest canceled *** "
+          puts "*"*50
+          puts " "
+          self.destroy
+          puts "*"*50
+          puts " *** FriendRequest destroyed *** "
           puts "*"*50
           puts " "
       end

@@ -27,6 +27,9 @@
 
         <span class="pt-2">
           <%= link_to 'delete', friend_request, method: :delete, data: { confirm: 'are you sure you would like to delete this friend request?' }, class:"btn btn-outline-danger" %>
+
+          <%= render partial: "friend_requests/options_modal", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
+
         </span>
       </div>
     <% end %>
