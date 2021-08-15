@@ -15,15 +15,22 @@ class FriendRequest < ApplicationRecord
   before_create :check_request_status
   before_create :check_if_request_exists
   before_destroy :yeet_notification
+  after_update :handle_friend_request_cycle
 
   validates :status, presence: true
-  validate :disallow_self_referential_friendship
+  validate :disallow_self_referential_friend_request
 
-  after_update :handle_friend_request_cycle
+  def is_active?
+    if (self.pending?) || (self.accepted?)
+      return true
+    else
+      return false
+    end
+  end
 
   private
 
-    def disallow_self_referential_friendship
+    def disallow_self_referential_friend_request
       if (requestor_id == receiver_id)
         errors.add(:base, "Invalid Action.")
       end
@@ -41,6 +48,22 @@ class FriendRequest < ApplicationRecord
       puts self.inspect
       if self.status == nil
         self.status = "pending"
+      end
+    end
+
+    def yeet_notification
+      if Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id).any?
+        Notification.all.where(actor_id: self.requestor_id, recipient_id:receiver_id ).each do |notification|
+          puts "Notification == FriendRequest? #{self == notification.notifiable}"
+          if self == notification.notifiable
+            notification.destroy
+            puts " "
+            puts "*"*50
+            puts "Associated Notification Destroyed"
+            puts "*"*50
+            puts " "
+          end
+        end
       end
     end
 
@@ -89,11 +112,10 @@ class FriendRequest < ApplicationRecord
           puts " *** FriendRequest Accepted *** "
           puts "*"*50
           puts " "
-          #   Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id, created_at: Time.zone.now)
-          #   Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id)
+          Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id)
           puts " "
           puts "*"*50
-          #   puts " *** Friendship created between (friend a)#{self.receiver.name} and (friend b)#{self.requestor.name} *** "
+          puts " *** Friendship created between (friend a)#{self.receiver.name} and (friend b)#{self.requestor.name} *** "
           puts "*"*50
           puts " "
         when 'rejected'
@@ -109,13 +131,7 @@ class FriendRequest < ApplicationRecord
           puts "*"*50
           puts " "
       end
-
-
-
       # byebug
-
-
-
     end
 
 

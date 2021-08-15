@@ -30,12 +30,13 @@
        <div class="relative w-full">
 
            <%= render partial: "shared/flash"%>
+
            <p class="text-center animate-pulse font-bold text-gray-200 text-2xl mb-6">
-            Welcome <%= current_user.name if current_user%>
-            <br/>
-            Locale To:
-            <%= locale_to %>
-          </p>
+              Welcome <%= current_user.name if current_user%>
+              <br/>
+              Locale To:
+              <%= locale_to %>
+            </p>
 
           <div class="container">
 
@@ -60,8 +61,12 @@
           <%# end %>
 
           <% if (@locale_to == 'Registrations#new') || (@locale_to == 'Sessions#new')  %>
-              <div class="-m-6">
-                <%= yield %>
+              <div class="-m-4 ">
+                <div class="h-full">
+                  <div class="m-auto">
+                  <%= yield %>
+                </div>
+                </div>
               </div>
             <% else %>
               <div class=" bg-gradient-to-r from-green-200 to-blue-300 px-2 py-4 font-light">
@@ -69,10 +74,8 @@
               </div>
             <% end %>
 
-
-
             <% if @locale_to != "Pages#home" %>
-            <div class="py-4">
+            <div class="py-8">
               <div class="text-center">
                <%= link_to "Back", :back, class:"btn btn-primary" %>
               </div>

@@ -20,18 +20,12 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :friend_requests, only: [:index, :new, :create]
+    get '/friends', to: 'friendships#index', as: 'friends'
   end
-  resources :friend_requests, only: [:show, :update, :destroy]
-
-  # resources :users do
-  #   resources :friend_requests, shallow: true
-  # end
+  resources :friend_requests, only: [:index, :show, :update, :destroy]
 
   resources :friendships
 
-### Only for Admin Create
-  resources :friend_requests, only: :create # Only used form admin_friend_request
-  get '/admin_friend_request', to: 'friend_requests#admin_friend_request', as: 'admin_friend_request'
 
   resources :notifications do
     collection do

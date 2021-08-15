@@ -1,8 +1,8 @@
-<% if (current_user.id == friend_request.receiver_id) %>
+<% if (current_user.id == friend_request.receiver_id) || (current_user.id == friend_request.requestor_id) %>
 
-  <div class="p-2 row justify-content-between">
+  <div class="p-4 row justify-content-between">
     <span>
-      <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent  <%= link_to "You", user_path(friend_request.receiver) %> a friend request
+      <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent you a friend request
 
       <br>
       <%= "Request: #{friend_request.status.capitalize}" %>

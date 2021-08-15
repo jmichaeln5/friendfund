@@ -1,39 +1,31 @@
-  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#friendRequestAsRequestorModal">
+  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#friendRequestAsRequestorModal<%="#{friend_request.id}"%>">
     <!-- Requested -->
-    As Requestor
+    Pending
   </button>
 
 <!-- Modal -->
-<div class="modal fade" id="friendRequestAsRequestorModal" tabindex="-1" role="dialog" aria-labelledby="friendRequestAsRequestorModalLabel" aria-hidden="true">
+<div class="modal fade" id="friendRequestAsRequestorModal<%="#{friend_request.id}"%>" tabindex="-1" role="dialog" aria-labelledby="friendRequestAsRequestorModal<%="#{friend_request.id}"%>Label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="friendRequestAsRequestorModalLabel">Friend Request</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <div class="modal-body">
 
-          <div class="pb-4">
-            <div class="card p-4">
+        <div class="modal-header">
+          <p class="modal-title text-2xl" id="friendRequestAsRequestorModal<%="#{friend_request.id}"%>Label">
+            You sent <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %> a friend request
+          </p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
-              <div class="row">
-
-                <div>
-                  <%= render partial: "friend_requests/request_buttons/cancel_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
-                </div>
-
-                <div>
-                  <%= render partial: "friend_requests/request_buttons/delete_request_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
-                </div>
-
+        <div class="modal-body ">
+            <div class="row flex justify-center ">
+              <div class="px-2">
+                <%= render partial: "friend_requests/request_buttons/cancel_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
               </div>
-
+              <div class="px-2">
+                <%#= render partial: "friend_requests/request_buttons/reject_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
+              </div>
             </div>
-          </div>
-
-
         </div>
 
         <div class="modal-footer">

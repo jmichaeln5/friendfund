@@ -31,7 +31,6 @@ class FriendRequestsController < ApplicationController
       redirect_to request.referrer
       @friend_request.errors.full_messages.each.map {|message| flash[:alert] = message }
     end
-
   end
 
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json

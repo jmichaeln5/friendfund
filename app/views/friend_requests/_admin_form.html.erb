@@ -1,26 +1,25 @@
-
 <div class="p-4">
   <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
     <p class="text-3xl"> Admin Form</p>
 
     <%= form_with(model: FriendRequest.new) do |form| %>
 
-      <div class="field">
+      <div class="field py-2">
         <%= form.label "Requestor" %>
-        <%= form.select :requestor_id, User.all.order(:id).collect { |user| [ user.username, user.id ] }, {}, {class: "form-control"} %>
+        <%= form.select(:requestor_id, users_for_select, {}, {class: "form-control"}) %>
       </div>
 
-      <div class="field">
+      <div class="field py-2">
         <%= form.label :receiver_id %>
-        <%= form.select :receiver_id, User.all.order(:id).collect  { |user| [ user.username, user.id ] }, {}, {class: "form-control"} %>
+        <%= form.select(:receiver_id, users_for_select, {}, {class: "form-control"}) %>
       </div>
 
-      <div class="field">
+      <div class="field py-2">
         <%= form.label "Status" %>
         <%= form.select(:status, options_for_select([['Pending', 'pending'],['Accepted','accepted'],['Rejected','rejected']]), {}, {class: "form-control"}) %>
       </div>
 
-      <div class="py-2">
+      <div class="py-4">
         <div class="actions btn btn-outline-primary">
           <%= button_tag(type: 'submit') do %>
             Submit
