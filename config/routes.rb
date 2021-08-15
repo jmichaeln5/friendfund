@@ -22,8 +22,8 @@ Rails.application.routes.draw do
     resources :friend_requests, only: [:index, :new, :create]
     get '/friends', to: 'friendships#index', as: 'friends'
   end
-  resources :friend_requests, only: [:index, :show, :update, :destroy]
-
+  # resources :friend_requests, only: [:create, :index, :show, :update, :destroy]
+  resources :friend_requests
   resources :friendships
 
 
