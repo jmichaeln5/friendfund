@@ -6,7 +6,6 @@
 
   <%= link_to " #{notification.actor.name}", notification.actor %> accepted your  friend request
 
-
 <% else %>
 
   new <%=" #{notification.notifiable.class.to_s.underscore.humanize.downcase}" %> from <%= link_to " #{notification.actor.name}", notification.actor %>

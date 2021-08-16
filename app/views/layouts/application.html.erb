@@ -36,7 +36,8 @@
           <% end %>
 
           <div class="container">
-          <% if (@locale_to == 'Registrations#new') || (@locale_to == 'Sessions#new')  %>
+
+          <% if ( (controller_name + action_name) == 'registrationsnew'  || (controller_name + action_name) == 'sessionsnew' ) %>
               <div class="-m-4 ">
                 <div class="h-full">
                   <div class="m-auto">
@@ -50,7 +51,7 @@
               </div>
             <% end %>
 
-            <% if @locale_to != "Pages#home" %>
+            <% if ( controller_name + action_name ) != 'pageshome' %>
             <div class="py-8">
               <div class="text-center">
                <%= link_to "Back", :back, class:"btn btn-primary" %>
