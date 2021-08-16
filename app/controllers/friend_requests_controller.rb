@@ -60,9 +60,7 @@ class FriendRequestsController < ApplicationController
   # DELETE /friend_requests/1 or /friend_requests/1.json
   def destroy
     @friend_request.destroy
-    # redirect_to request.referrer, notice: "friend request #{@friend_request.status}."
-    redirect_to request.referrer
-    @friend_request.messages.full_messages.each.map {|message| flash[:alert] = message }
+    redirect_to request.referrer, notice: "friend request deleted"
   end
 
   private
