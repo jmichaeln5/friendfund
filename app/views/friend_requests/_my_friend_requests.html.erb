@@ -21,7 +21,7 @@
           <% end %>
           <br>
           <%= "Request: #{friend_request.status.capitalize}" %>
-          <p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
+          <p class="text-xs text-gray-800 font-thin"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> ago</p>
 
         </span>
 

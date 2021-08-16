@@ -19,15 +19,15 @@
         <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
         <br>
         <%= "Request: #{friend_request.status.capitalize}" %>
-      </span>
-      <span class="pt-2">
         <br>
+        <span class="text-xs text-gray-800 font-thin"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> ago</span>
+
+      </span>
+      <span class="pt-4">
         <%#= render partial: "friend_requests/as_admin", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
         <%= render partial: "friend_requests/options_modal", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
       </span>
     </div>
-    <p class="text-sm text-gray-800 p-2"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
-
     <% end %>
 
   </div>
