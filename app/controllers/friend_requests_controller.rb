@@ -35,8 +35,22 @@ class FriendRequestsController < ApplicationController
 
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json
   def update
-      if @friend_request.update(friend_request_params)
-      redirect_to request.referrer, notice: "friend request #{@friend_request.status}."
+    if @friend_request.update(friend_request_params)
+      if @friend_request.accepted?
+
+        friendship = Friendship.new(friend_a: @friend_request.receiver, friend_b: @friend_request.requestor)
+
+        notify_requestor = Notification.new(recipient: @friend_request.requestor, actor: @friend_request.receiver, action:'accepted', notifiable: friendship )
+
+        friendship.save
+        notify_requestor.save
+
+        destroy_old_notification = Notification.all.where(actor_id: @friend_request.requestor_id, recipient_id: @friend_request.receiver_id ,notifiable: @friend_request).first.destroy
+
+        redirect_to user_friends_path(current_user), notice: "Friend request accepted. You are now friends with #{@friend_request.requestor.username}."
+      else
+        redirect_to request.referrer, notice: "friend request #{@friend_request.status}."
+      end
     else
       redirect_to request.referrer
       @friend_request.errors.full_messages.each.map {|message| flash[:alert] = message }
@@ -46,10 +60,9 @@ class FriendRequestsController < ApplicationController
   # DELETE /friend_requests/1 or /friend_requests/1.json
   def destroy
     @friend_request.destroy
-    respond_to do |format|
-      format.html { redirect_to user_friend_requests_path(current_user), notice: "friend request removed." }
-      format.json { head :no_content }
-    end
+    # redirect_to request.referrer, notice: "friend request #{@friend_request.status}."
+    redirect_to request.referrer
+    @friend_request.messages.full_messages.each.map {|message| flash[:alert] = message }
   end
 
   private
@@ -62,5 +75,7 @@ class FriendRequestsController < ApplicationController
     def friend_request_params
       params.require(:friend_request).permit(:requestor_id, :receiver_id, :status)
     end
+
+
 
 end

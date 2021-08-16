@@ -15,7 +15,7 @@
         <div class="col-start-1 col-end-6 ">
           <p>
 
-            new <%= link_to " #{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to " #{notification.actor.name}", notification.actor %>
+            <%= render partial: "notifications/notifiable/notification_message", locals: {notification: notification } %>
 
             <p class="text-xs text-gray-800 font-thin -mt-4">
               <%= "#{time_ago_in_words(notification.created_at)} ago" %>
@@ -46,10 +46,7 @@
 
   <% elsif @earlier_notifications.any? %>
 
-
-
     <%= link_to "#{ @earlier_notifications.count } earlier #{ earlier_notification_or_notifications }", all_notifications_path %>
-
 
   <% else %>
 

@@ -13,6 +13,7 @@ class FriendRequest < ApplicationRecord
   ############
 
   before_create :check_request_status
+  before_create :check_if_friendship_exists
   before_create :check_if_request_exists
   before_destroy :yeet_notification
   after_update :handle_friend_request_cycle
@@ -42,6 +43,14 @@ class FriendRequest < ApplicationRecord
         throw(:abort)
       end
     end
+
+    def check_if_friendship_exists
+      if ( (Friendship.all.where(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id ).any?) ==  true ) || ( (Friendship.all.where(friend_a_id: self.requestor_id, friend_b_id: self.receiver_id ).any?) ==  true )
+        self.errors.add(:base, "Invalid Action, users are already friends.")
+        throw(:abort)
+      end
+    end
+
 
     def check_request_status
       puts "Checking FriendRequest..."
@@ -90,29 +99,16 @@ class FriendRequest < ApplicationRecord
     end
 
     def handle_friend_request_cycle
-      # if self.accepted?
-      #   puts "*"*50
-      #   puts " *** Request Accepted *** "
-      #   puts "*"*50
-      #
-      #   Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id, created_at: Time.zone.now)
-      #
-      #   puts "*"*50
-      #   puts " *** Friendship created between (friend a)#{self.receiver.name} and (friend b)#{self.requestor.name} *** "
-      #   puts "*"*50
-      # end
-
       auto_mark_notification_as_read
 
       case self.status
-
       when 'accepted'
           puts " "
           puts "*"*50
           puts " *** FriendRequest Accepted *** "
           puts "*"*50
           puts " "
-          Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id)
+          # friendship = Friendship.create(friend_a_id: self.receiver_id, friend_b_id: self.requestor_id)
           puts " "
           puts "*"*50
           puts " *** Friendship created between (friend a)#{self.receiver.name} and (friend b)#{self.requestor.name} *** "
@@ -125,11 +121,6 @@ class FriendRequest < ApplicationRecord
           puts " *** FriendRequest rejected *** "
           puts "*"*50
           puts " "
-          self.destroy
-          puts "*"*50
-          puts " *** FriendRequest destroyed *** "
-          puts "*"*50
-          puts " "
         when 'canceled'
           # byebug
           puts " "
@@ -137,13 +128,12 @@ class FriendRequest < ApplicationRecord
           puts " *** FriendRequest canceled *** "
           puts "*"*50
           puts " "
-          self.destroy
-          puts "*"*50
-          puts " *** FriendRequest destroyed *** "
-          puts "*"*50
-          puts " "
       end
-      # byebug
+      # self.destroy
+      # puts "*"*50
+      # puts " *** FriendRequest destroyed *** "
+      # puts "*"*50
+      # puts " "
     end
 
 
