@@ -51,7 +51,7 @@ class User < ApplicationRecord
   def friend_request_with(user)
     if (FriendRequest.where(requestor_id: self.id, receiver_id: user.id).first.present? || FriendRequest.where(receiver_id: self.id, requestor_id: user.id).first.present? )
 
-    friend_request = (FriendRequest.where(requestor_id: self.id, receiver_id: user.id).first || FriendRequest.where(receiver_id: self.id, requestor_id: user.id).first )
+      friend_request = (FriendRequest.where(requestor_id: self.id, receiver_id: user.id).first || FriendRequest.where(receiver_id: self.id, requestor_id: user.id).first )
 
     else
       return nil
