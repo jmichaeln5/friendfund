@@ -1,4 +1,4 @@
-<%= render partial: "friend_requests/admin_form", locals: {friend_request: @friend_request} %>
+<%= render partial: "friend_requests/admin_form", locals: {friend_request: FriendRequest.new} %>
 
 <br>
 
@@ -7,18 +7,21 @@
     <div class="px-2 row justify-content-between text-3xl">
         Friend Requests
       <span>
-        <%= @recieved_friend_requests.count%> Friend Requests
+        <%= @friend_requests_as_receiver.count%> Friend Requests
       </span>
     </div>
     <br>
-    <%= render partial: "friend_request", collection: @recieved_friend_requests %>
+    <%#= render partial: "friend_requests", collection: @friend_requests_as_receiver %>
+    <h1> as receiver </h1>
+    <%= render partial: "friend_request", collection: @friend_requests_as_receiver %>
+    <h1> as requestor </h1>
+    <%= render partial: "friend_request", collection: @friend_requests_as_requestor %>
+    <h1> receiver + requestor  </h1>
+    <%= render partial: "friend_request", collection: @friend_requests %>
+    <h1> all  </h1>
+    <%= render partial: "friend_request", collection: @all_friend_requests %>
   </div>
 </div>
 
 <br>
-
-<%= render partial: "friend_requests/my_friend_requests" %>
-
 <br>
-
-<%= render partial: "friend_requests/all_friend_requests" %>

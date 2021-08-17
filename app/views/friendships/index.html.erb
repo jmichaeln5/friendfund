@@ -1,8 +1,14 @@
+<div class="p-4 border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+
+
 <h1>Friends </h1>
 
-<% @friendships.each do | friendship| %>
-<%= friendship.inspect %>
-<br>
-<hr>
-<br>
+<% current_user.friendships.order("created_at DESC").each do | friendship | %>
+
+  <% (current_user != friendship.friend_a) ? (friend = User.find(friendship.friend_a.id)) : (friend = User.find(friendship.friend_b.id)) %>
+
+  <%= render partial: "users/user", locals: {user: friend} %>
+
 <% end %>
+
+</div>

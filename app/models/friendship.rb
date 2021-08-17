@@ -11,7 +11,5 @@ class Friendship < ApplicationRecord
 
     # Notification.create(actor_id: self.friend_b.id, recipient_id:friend_a.id, action:'accepted', notifiable: self )
     # Notification.create(actor_id: self.friend_b_id, recipient_id:friend_a)
-
   end
-
 end

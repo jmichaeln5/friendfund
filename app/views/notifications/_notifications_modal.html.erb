@@ -1,7 +1,6 @@
 <% @unread_notifications = Notification.all.where(recipient: current_user.id).unread %>
 <% @earlier_notifications = Notification.all.where(recipient: current_user.id).where("notifications.read_at IS NOT NULL").order('created_at DESC') %>
 
-
 <!-- Modal Button -->
 <li type="" class="nav-link px-4 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md text-xs " data-toggle="modal" data-target="#notificationsModal">
   <div class="row ">
