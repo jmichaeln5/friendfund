@@ -1,0 +1,32 @@
+<% @notifications = Notification.all.where(recipient: current_user.id) %>
+<% @unread_notifications = Notification.all.where(recipient: current_user.id).unread %>
+<% @earlier_notifications = Notification.all.where(recipient: current_user.id).where("notifications.read_at IS NOT NULL").order('created_at DESC') %>
+
+
+<!-- Earlier Notifications -->
+<% if @earlier_notifications.any? %>
+
+<div class="grid grid-cols-6 gap-6">
+  <div class="col-start-1 col-end-3 ">
+
+    <p class="flex flex-nowrap text-2xl text-center">
+      Earlier
+    </p>
+
+  </div>
+</div>
+
+  <% @earlier_notifications.each do |notification| %>
+
+    <div class="row">
+      <div class="px-3 pb-2">
+        new <%= link_to "#{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to "#{notification.actor.name}", notification.actor %>
+        <p class="text-sm text-gray-800">
+          <%= "#{time_ago_in_words(notification.created_at)} ago" %>
+        </p>
+      </div>
+
+    </div>
+
+  <% end %>
+<% end %>

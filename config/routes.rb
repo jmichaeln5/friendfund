@@ -20,22 +20,21 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :friend_requests, only: [:index, :new, :create]
+    get '/friends', to: 'friendships#index', as: 'friends'
   end
-  resources :friend_requests, only: [:show, :update, :destroy]
-
-  # resources :users do
-  #   resources :friend_requests, shallow: true
-  # end
-
+  # resources :friend_requests, only: [:create, :index, :show, :update, :destroy]
+  resources :friend_requests
   resources :friendships
 
-### Only for Admin Create
-  resources :friend_requests, only: :create # Only used form admin_friend_request
-  get '/admin_friend_request', to: 'friend_requests#admin_friend_request', as: 'admin_friend_request'
-### Only for Admin Create
 
+  resources :notifications do
+    collection do
+      post :mark_all_as_read
+    end
+  end
 
-
+  post '/notifications/:id/mark_as_read', to: 'notifications#mark_as_read', as: 'mark_as_read'
+  get '/all_notifications', to: 'notifications#all_notifications', as: 'all_notifications'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

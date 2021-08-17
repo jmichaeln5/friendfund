@@ -19,40 +19,49 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="bg-indigo-100">
+  <body class=" bg-gradient-to-r from-green-400 to-blue-500">
 
     <%#= render "shared/navbar"%>
     <%= render "shared/navbar2"%>
-
     <div class="font-sans h-screen w-full">
-     <div class="h-screen bg-gradient-to-r from-green-400 to-blue-500">
+      <!-- <div class="h-screen bg-gradient-to-r from-green-400 to-blue-500"> -->
+      <div class="h-screen">
       <div class="py-8">
-       <div class="relative w-full">
+        <div class="relative w-full">
 
-           <%= render partial: "shared/flash"%>
-           <h1 class="text-center animate-pulse font-bold text-gray-200 text-2xl mb-6">
-            Welcome <%= current_user.name if current_user%>
-            <br/>
-            Locale To: <%= locale_to %>
-           </h1>
+          <%= render partial: "shared/flash"%>
+
+          <%  if Rails.env.development?%>
+            <%= render partial: "shared/local_to"%>
+          <% end %>
 
           <div class="container">
-            <div class=" bg-gradient-to-r from-green-200 to-blue-300 p-4">
-              <%= yield %>
-            </div>
 
+          <% if ( (controller_name + action_name) == 'registrationsnew'  || (controller_name + action_name) == 'sessionsnew' ) %>
+              <div class="-m-4 ">
+                <div class="h-full">
+                  <div class="m-auto">
+                  <%= yield %>
+                </div>
+                </div>
+              </div>
+            <% else %>
+              <div class=" bg-gradient-to-r from-green-200 to-blue-300 px-2 py-4 font-light">
+                <%= yield %>
+              </div>
+            <% end %>
 
-            <div class="py-4">
+            <% if ( controller_name + action_name ) != 'pageshome' %>
+            <div class="py-8">
               <div class="text-center">
-
                <%= link_to "Back", :back, class:"btn btn-primary" %>
               </div>
             </div>
-
+            <% end %>
 
           </div>
 
-       </div>
+        </div>
       </div>
      </div>
     </div>
@@ -61,10 +70,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
+
+
     <script type="text/javascript">
       setTimeout(function(){
-        $('.msg-container').fadeOut().remove();
-      }, 2500);
+        $('.msg-container').fadeOut();
+      }, 4000).remove();
       // $(".msg-container").delay(4000).fadeOut().remove();
     </script>
 

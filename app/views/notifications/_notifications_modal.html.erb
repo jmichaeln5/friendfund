@@ -1,0 +1,84 @@
+<% @unread_notifications = Notification.all.where(recipient: current_user.id).unread %>
+<% @earlier_notifications = Notification.all.where(recipient: current_user.id).where("notifications.read_at IS NOT NULL").order('created_at DESC') %>
+
+<!-- Modal Button -->
+<li type="" class="nav-link px-4 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md text-xs " data-toggle="modal" data-target="#notificationsModal">
+  <div class="row ">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+    </svg>
+
+
+    <% if @unread_notifications.any? %>
+
+        <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+          <%= @unread_notifications.count %>
+        </span>
+
+    <% else %>
+
+        <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none  rounded-full">
+          0
+        </span>
+
+    <% end %>
+
+  </div>
+</li>
+
+
+<!-- Modal -->
+<div class="modal fade" id="notificationsModal" tabindex="-1" role="dialog" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content font-light">
+
+      <!-- Modal Header -->
+      <div class="modal-header ">
+
+        <div class="grid grid-cols-6 gap-6 ">
+          <div class="col-start-1 col-end-3 ">
+            <p class="flex flex-nowrap text-2xl text-center">
+
+              <% if @unread_notifications.present?%>
+                <%= @unread_notifications.count %> new <%= @unread_notifications.count == 1 ? "notification" : "notifications" %>
+
+              <% else %>
+
+                no new notifications
+
+              <% end %>
+
+            </p>
+          </div>
+
+          <div class=" col-end-8 text-center text-2xl ">
+
+              <% if @unread_notifications.unread.any? %>
+
+                <span class=" px-4 pb-1">
+                  <br>
+                  <%= link_to "view all", all_notifications_path %>
+                </span>
+
+              <% elsif @earlier_notifications.any? %>
+
+                <%= link_to "earlier notifications", all_notifications_path %>
+
+              <% end %>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-body">
+
+      <%= render "notifications/index" %>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

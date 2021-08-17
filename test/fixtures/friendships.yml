@@ -1,11 +1,20 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# one:
+#   user: one
+#   friend: one
+#   confirmed: false
+#
+# two:
+#   user: two
+#   friend: two
+#   confirmed: false
+
+
 one:
-  user: one
-  friend: one
-  confirmed: false
+  friend_a_id: 1
+  friend_b_id: 2
 
 two:
-  user: two
-  friend: two
-  confirmed: false
+  friend_a_id: 2
+  friend_b_id: 1

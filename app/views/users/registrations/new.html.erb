@@ -1,63 +1,53 @@
-<div class="py-2 px-2 font-bold text-gray-800 text-xl">
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-  <h1 class="animate-pulse font-bold text-gray-200 text-6xl mb-6">
-    Sign up
-  </h1>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%#= render "devise/shared/error_messages", resource: resource %>
-    <%= render "users/shared/error_messages", resource: resource %>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
-    <div class="field font-bold">
-      full name
-      <br />
-        <%= f.text_field :name, autofocus: true, class:"bg-gray-200" %>
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <div class="container">
+        <br>
+        <p class="text-3xl"> Sign Up✍️ </p>
+      </div>
     </div>
 
-    <div class="field font-bold">
-      phone number
-      <br />
-        <%= f.text_field :phone_number, autofocus: true, class:"bg-gray-200" %>
-    </div>
-
-    <div class="field font-bold">
-      email
-      <br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"bg-gray-200 " %>
-    </div>
-
-    <div class="field font-bold">
-      username
-      <br />
-        <%= f.text_field :username, autofocus: true, class:"bg-gray-200" %>
-    </div>
+    <!-- Login Form -->
 
 
-    <div class="field font-bold">
-      password
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", class:"bg-gray-200 " %>
-    </div>
+        <%= f.text_field :name, autocomplete: 'name', placeholder:' full name', class:"field fadeIn second widerTextField border border-4  inputText" %>
 
-    <div class="field py-3 px-2 font-bold">
-      password confirmation
-      <br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"bg-gray-200 " %>
-    </div>
+        <span class="field">
+          <%= f.email_field :email, autocomplete: 'email', placeholder:' email', class:"fadeIn third widerTextField border border-4  inputText" %>
+        </span>
+
+        <%= f.text_field :phone_number, autocomplete: "phone number", placeholder:'phone number', class:"field fadeIn fourth widerTextField border border-4  inputText" %>
+
+        <%= f.text_field :username, autocomplete: 'username', placeholder:'username', class:"field fadeIn fifth widerTextField border border-4  inputText" %>
 
 
-    <br>
+        <%= f.password_field :password, autocomplete: 'password', placeholder:'password', class:"field fadeIn sixth widerTextField border border-4  inputText" %>
 
-    <div class="actions btn btn-success">
-      <%= button_tag(type: 'submit') do %>
-       Sign Up
+
+        <%= f.password_field :password_confirmation, autocomplete: 'new-password', placeholder:'password confirmation', class:"field fadeIn seventh widerTextField border border-4  inputText" %>
+
+
+        <% if devise_mapping.rememberable? %>
+          <br/>
+          <div class="field  fadeIn seventh">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %>
+
+        <div class="actions fadeIn seventh">
+          <%= f.submit "Sign Up", id:"formBtn" %>
+        </div>
       <% end %>
+
+    <div id="formFooter">
+      <%= render "users/shared/links" %>
     </div>
 
-  <% end %>
-
-  <%#= render "devise/shared/links" %>
-  <%= render "users/shared/links" %>
-
+  </div>
 </div>

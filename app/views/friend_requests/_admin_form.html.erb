@@ -1,39 +1,25 @@
-<h1>Admin Friend Request Form</h1>
-
 <div class="p-4">
   <div class="border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 p-4">
     <p class="text-3xl"> Admin Form</p>
 
-    <%= form_with(model: friend_request) do |form| %>
+    <%= form_with(model: FriendRequest.new) do |form| %>
 
-      <% if friend_request.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(friend_request.errors.count, "error") %> prohibited this friend_request from being saved:</h2>
-
-          <ul>
-            <% friend_request.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="field">
+      <div class="field py-2">
         <%= form.label "Requestor" %>
-        <%= form.select :requestor_id, User.all.collect { |user| [ user.username, user.id ] } %>
+        <%= form.select(:requestor_id, users_for_select, {}, {class: "form-control"}) %>
       </div>
 
-      <div class="field">
+      <div class="field py-2">
         <%= form.label :receiver_id %>
-        <%= form.select :receiver_id, User.all.collect { |user| [ user.username, user.id ] } %>
+        <%= form.select(:receiver_id, users_for_select, {}, {class: "form-control"}) %>
       </div>
 
-      <div class="field">
+      <div class="field py-2">
         <%= form.label "Status" %>
-        <%= form.select(:status, options_for_select([['Pending', 'pending'],['Accepted','accepted'],['Rejected','rejected']])) %>
+        <%= form.select(:status, options_for_select([['Pending', 'pending'],['Accepted','accepted'],['Rejected','rejected']]), {}, {class: "form-control"}) %>
       </div>
 
-      <div class="py-2">
+      <div class="py-4">
         <div class="actions btn btn-outline-primary">
           <%= button_tag(type: 'submit') do %>
             Submit

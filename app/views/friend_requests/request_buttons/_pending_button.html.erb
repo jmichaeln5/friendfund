@@ -1,0 +1,12 @@
+<%= form_with(model: friend_request) do |form| %>
+    <%= form.hidden_field :requestor_id, value: friend_request.requestor_id %>
+    <%= form.hidden_field :receiver_id, value: friend_request.receiver_id %>
+    <%= form.hidden_field :status, value: "pending" %>
+
+    <div class="actions btn btn-outline-primary">
+      <%= button_tag(type: 'submit') do %>
+        make pending
+      <% end %>
+    </div>
+
+<% end %>

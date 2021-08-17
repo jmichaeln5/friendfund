@@ -1,9 +1,11 @@
 <%= form_with(model: friend_request) do |form| %>
+    <%= form.hidden_field :requestor_id, value: friend_request.requestor_id %>
+    <%= form.hidden_field :receiver_id, value: friend_request.receiver_id %>
     <%= form.hidden_field :status, value: "canceled" %>
 
     <div class="actions btn btn-outline-secondary">
       <%= button_tag(type: 'submit') do %>
-        cancel request
+        cancel
       <% end %>
     </div>
 

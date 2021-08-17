@@ -1,16 +1,23 @@
-<% if (current_user.id == friend_request.requestor_id) %>
+<div class="p-4 row justify-content-between">
+  <span>
 
-<%= You sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
+    <% if friend_request.receiver.id == current_user.id %>
+      <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent you a friend request
+    <% elsif (current_user.id == friend_request.requestor.id) %>
+      you sent <%= link_to "#{friend_request.receiver.name}" %>  a friend request
+    <% else %>
+      <%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent <%= link_to "#{friend_request.receiver.name}" %>  a friend request
+    <% end %>
 
-<% else %>
+    <br>
+    <%= "Request: #{friend_request.status.capitalize}" %>
+    <br>
+    <p class="text-xs text-gray-800 font-thin">
+      <%= "#{time_ago_in_words(friend_request.created_at)} ago" %>
+    </p>
+  </span>
 
-<%= link_to "#{friend_request.requestor.name}", user_path(friend_request.requestor) %> sent a <%= link_to "friend request", friend_request_path(friend_request) %> to <%= link_to "#{friend_request.receiver.name}", user_path(friend_request.receiver) %>
-
-<% end %>
-
-
-<br>
-<%= "Request: #{friend_request.status.capitalize}" %> <%= get_friendship_status(friend_request) %>
-<br>
-<p class="text-sm text-gray-800"> <%=  "#{time_ago_in_words(friend_request.created_at)}" %> </p>
-<hr>
+  <span class="pt-2">
+    <%= render partial: "friend_requests/options_modal", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
+  </span>
+</div>

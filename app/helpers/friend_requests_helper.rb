@@ -9,6 +9,11 @@ module FriendRequestsHelper
   #   end
   # end
 
+  def users_for_select
+    User.all.order(:id).collect  { |user| [ user.username, user.id ] }
+  end
+
+
   def get_friendship_status(friend_request)
     case friend_request.status
     when "pending"

@@ -24,8 +24,8 @@ task :heroku_help do
   puts "more examples:"
   puts " "
   puts "  $ heroku run bundle --remote development"
-  puts "  $ heroku run rails c --sandbox --remote development"
-  puts "  $ heroku run rails db:migrate --remote development"
+  puts "  $ heroku run rails c --sandbox --app development-friendfund"
+  puts "  $ heroku run rails db:migrate --app development-friendfund"
 
   puts " "
   puts "*"*50
@@ -38,8 +38,6 @@ task :heroku_help do
 
   puts " "
   puts "Pushing to Development:"
-  puts "  $ git push development main"
-  puts "  $ or"
   puts "  $ git push development development:main"
   puts " "
   puts " "

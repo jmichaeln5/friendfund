@@ -20,3 +20,32 @@
     https://gorails.com/episodes/pretty-urls-with-friendly-id
       https://github.com/norman/friendly_id
       gem 'friendly_id', '~> 5.1'
+
+#######################################
+### **** Write Raw SQL in Active Record Query **** ###
+### **** Write Raw SQL in Active Record Query **** ###
+### **** Write Raw SQL in Active Record Query **** ###
+#######################################
+
+(Move to a ruby file or run in console)
+
+current_user = User.second
+user = User.find(3)
+
+
+current_user.friend_requests_as_requestor.all
+current_user.friend_requests_as_requestor.all.to_sql
+
+current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id).all.where(receiver_id: user.id)
+
+current_user.friend_requests_as_requestor.all.where(requestor_id: current_user.id).all.where(receiver_id: user.id).to_sql
+
+# => "SELECT \"friend_requests\".* FROM \"friend_requests\" WHERE \"friend_requests\".\"requestor_id\" = 2 AND \"friend_requests\".\"requestor_id\" = 2 AND \"friend_requests\".\"receiver_id\" = 3"
+
+# => SELECT friend_requests.* FROM friend_requests WHERE friend_requests.requestor_id = 2 AND friend_requests.requestor_id = 2 AND friend_requests.receiver_id = 3
+
+# https://api.rubyonrails.org/classes/ActiveRecord/Result.html
+
+result = ActiveRecord::Base.connection.exec_query('SELECT id, title, body FROM posts')
+
+result = ActiveRecord::Base.connection.exec_query('SELECT friend_requests.* FROM friend_requests WHERE friend_requests.requestor_id = 2 AND friend_requests.requestor_id = 2 AND friend_requests.receiver_id = 3')

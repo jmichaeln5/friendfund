@@ -1,11 +1,8 @@
-<h1>Dashboard#show</h1>
-<p> Find me in app/views/dashboard/show.html.erb</p>
-
-<%= link_to 'admin friend requests', admin_friend_request_path, class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+<%= link_to 'notifications', all_notifications_path %>
 <br>
-<%= link_to 'friend requests', user_friend_requests_path(current_user), class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+<%= link_to 'friend requests', user_friend_requests_path(current_user) %>
 <br>
-<%= link_to 'users', users_path, class:'hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium' %>
+<%= link_to 'users', users_path %>
 
 <hr>
 
@@ -22,4 +19,4 @@
 
 <br>
 
-  <%= render partial: "users/user", collection: @users, locals: {user: @user} %>
+  <%#= render partial: "users/user", collection: @users, locals: {user: @user} %>
