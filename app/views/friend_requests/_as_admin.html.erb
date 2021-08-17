@@ -11,9 +11,9 @@
 </div>
 
 <div class="py-1">
-  <%= render :partial => "friend_requests/request_buttons/delete_request_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
+  <%= render :partial => "friend_requests/request_buttons/pending_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
 </div>
 
 <div class="py-1">
-  <%= render :partial => "friend_requests/request_buttons/make_prending_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
+  <%= render :partial => "friend_requests/request_buttons/delete_request_button", locals: { friend_request: friend_request, requestor_id: friend_request.requestor.id, receiver_id: friend_request.receiver.id} %>
 </div>

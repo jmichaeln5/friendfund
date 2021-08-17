@@ -4,7 +4,11 @@ class FriendshipsController < ApplicationController
 
   # GET /friendships or /friendships.json
   def index
-    @friendships = Friendship.all.order("created_at DESC")
+    # @friendships = Friendship.all.order("created_at DESC")
+    # @friendships = (current_user.friendships_as_friend_b) + (current_user.friendships_as_friend_a).all.order("created_at DESC")
+    # @friends = @friendships
+    @friendships = current_user.friendships.order("created_at DESC")
+    # byebug
   end
 
   # GET /friendships/1 or /friendships/1.json
@@ -28,8 +32,8 @@ class FriendshipsController < ApplicationController
 
   # PATCH/PUT /friendships/1 or /friendships/1.json
   def update
-      if @friendship.update(friendship_params)
-      redirect_to request.referrer, notice: "friend request #{@friendship.status}."
+    if @friendship.update(friendship_params)
+      redirect_to request.referrer, notice: "friendship #{@friendship.status}."
     else
       redirect_to request.referrer
       @friendship.errors.full_messages.each.map {|message| flash[:alert] = message }
