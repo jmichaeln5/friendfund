@@ -29,7 +29,7 @@
     <div class="grid grid-cols-6 gap-6">
       <div class="col-start-1 col-end-6 ">
         <p>
-          new <%= link_to " #{notification.notifiable.class.to_s.underscore.humanize.downcase}", notification.notifiable %> from <%= link_to " #{notification.actor.name}", notification.actor %>
+          <%= render partial: "notifications/notifiable/notification_message", locals: {notification: notification } %>
           <p class="text-xs text-gray-800 font-thin -mt-4">
             <%=  "#{time_ago_in_words(notification.created_at)} ago" %>
           </p>

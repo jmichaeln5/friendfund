@@ -41,12 +41,13 @@ class FriendRequestsController < ApplicationController
   def update
     if @friend_request.update(friend_request_params)
       if @friend_request.accepted?
+
         friendship = Friendship.new(friend_a: @friend_request.receiver, friend_b: @friend_request.requestor)
-
-        notify_requestor = Notification.new(recipient: @friend_request.requestor, actor: @friend_request.receiver, action:'accepted', notifiable: friendship )
-
         friendship.save
-        notify_requestor.save
+
+        new_requestor_notification = Notification.new(recipient: @friend_request.requestor, actor: @friend_request.receiver, action:'accepted', notifiable: friendship )
+        new_requestor_notification.save
+
         redirect_to (dashboard_path), notice: "friend request accepted. You are now friends with #{@friend_request.requestor.username}."
 
       elsif @friend_request.rejected?
