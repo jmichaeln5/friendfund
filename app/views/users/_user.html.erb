@@ -3,11 +3,11 @@
       <div class="px-3">
         <div class="row justify-content-between">
           <div class="-px-3 pt-2">
-          <% if locale_to != "Users#show" %>
-            <%= link_to "#{user.username}", user_path(user) %>
-          <% else %>
-            <%= user.username%>
-          <% end %>
+            <% if locale_to != "Users#show" %>
+              <%= link_to "#{user.username}", user_path(user) %>
+            <% else %>
+              <%= user.username%>
+            <% end %>
           </div>
 
           <div class="-px-3">
