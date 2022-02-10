@@ -254,7 +254,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise (~> 4.2)
   factory_bot_rails
-  faker (~> 1.6, >= 1.6.3)
+  faker
   humanize (~> 1.1, >= 1.1.2)
   jbuilder (~> 2.7)
   letter_opener (~> 1.4, >= 1.4.1)

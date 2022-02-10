@@ -29,7 +29,6 @@ user_count = User.any? ? User.last.id : 0
             id: id,
             first_name: 'User',
             last_name: "#{id.humanize.capitalize}",
-            # phone_number: "954"+[*0..3, *0..4].sample(7).join,
             phone_number: [*0..3, *0..3, *0..4].sample(7).join,
             email: "user#{id}@gmail.com",
             username: "user#{id.humanize}",
